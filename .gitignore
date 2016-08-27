@@ -5,6 +5,13 @@
 .idea
 *.iml
 out
+<<<<<<< 6cd8053a9a63c84879d02f4a0fc5a7b1072092e7
 
 .idea/
 CS3220.iml
+=======
+gen
+
+.idea/
+CS3220.iml
+>>>>>>> asdf
