@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = "/intro/ShowDateAndTime")
+@WebServlet("/Intro/ShowDateAndTime")
 public class ShowDateAndTime extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

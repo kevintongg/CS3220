@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intro/SimplePageCounter")
+@WebServlet("/Intro/SimplePageCounter")
 public class PageCounter extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
