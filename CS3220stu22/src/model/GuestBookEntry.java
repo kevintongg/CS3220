@@ -4,22 +4,23 @@ import java.util.Date;
 
 public class GuestBookEntry {
 
-	static int count;
-	
+	static int count = 0;
+
 	int id;
 	String name;
 	String message;
 	Date created;
 
-	public GuestBookEntry() {
-		
-	}
-	
 	public GuestBookEntry(String name, String message) {
 		super();
 		this.name = name;
 		this.message = message;
 		this.created = new Date();
+		this.id = count++;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -42,19 +43,7 @@ public class GuestBookEntry {
 		return created;
 	}
 
-	public static int getCount() {
-		return count;
-	}
-
-	public static void setCount(int count) {
-		GuestBookEntry.count = count;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 }
