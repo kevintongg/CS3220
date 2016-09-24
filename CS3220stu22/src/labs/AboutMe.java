@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/Labs/AboutMe")
+@WebServlet("/labs/AboutMe")
 public class AboutMe extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -44,7 +44,7 @@ public class AboutMe extends HttpServlet {
 
     String cin = request.getParameter("cin");
 
-    if (cin != null && !cin.equals("304708110")) {
+    if (cin == null || !cin.equals("304708110")) {
       doGet(request, response);
       return;
     }

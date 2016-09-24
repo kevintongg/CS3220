@@ -21,7 +21,11 @@ public class Login extends HttpServlet {
 
     PrintWriter out = response.getWriter();
     out.println("<html>");
-    out.println("<head><title>Login</title></head>");
+    out.println("<head>");
+    out.println("	<!-- Latest compiled and minified CSS -->");
+    out.println("	<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\">");
+    out.println("<title>Login</title>");
+    out.println("</head>");
     out.println("<body>");
 
     String error = (String) request.getAttribute("error");
@@ -31,20 +35,16 @@ public class Login extends HttpServlet {
     }
 
     // Read the username and password if it exists
-    String username = request.getParameter("username");
-
-    if (username == null) {
-      request.getParameter("username");
-    }
-
-//    String username = request.getParameter("username") == null ? "" : request.getParameter("username");
+    String username = request.getParameter("username") == null ? "" : request.getParameter("username");
     String password = request.getParameter("password") == null ? "" : request.getParameter("password");
 
+    out.println("<div class=\"container\">");
     out.println("<form action='Login' method='post'>");
     out.println("Username: <input type='text' name='username' value='" + username + "'/> <br />");
     out.println("Password: <input type='password' name='password' value='" + password + "' /> <br />");
     out.println("<input type='submit' name='login' value='Login' /> <br />");
     out.println("</form>");
+    out.println("</div>");
 
     out.println("</body></html>");
   }

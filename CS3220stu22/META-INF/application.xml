@@ -4,4 +4,10 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"
              version="6">
 
+    <module id="CS3220stu22-Web">
+        <web>
+            <web-uri>web.war</web-uri>
+            <context-root>CS3220stu22Web</context-root>
+        </web>
+    </module>
 </application>
