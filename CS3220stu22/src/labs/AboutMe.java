@@ -23,6 +23,7 @@ public class AboutMe extends HttpServlet {
     out.println("	<!-- Latest compiled and minified CSS -->");
     out.println("	<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\">");
     out.println("	<meta charset=\"UTF-8\">");
+    out.println(" <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
     out.println("	<title>About Me</title>");
     out.println("</head>");
     out.println("<body>");
@@ -57,6 +58,7 @@ public class AboutMe extends HttpServlet {
     out.println("	<!-- Latest compiled and minified CSS -->");
     out.println("	<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\">");
     out.println("	<meta charset=\"UTF-8\">");
+    out.println(" <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
     out.println("	<title>About Me</title>");
     out.println("</head>");
     out.println("<body>");
