@@ -71,36 +71,36 @@ public class GradeCalculator extends HttpServlet {
 
     out.println("<tr>");
     out.println("<td>Attendance</td>");
-    out.println("<td><input type=\"text\" name=\"possible-attendance\" placeholder=\"100\" value=\"" + possibleAttendance + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"attendance\" value=\"" + actualAttendance + "\"></td>");
-    out.println("<td>-/20%</td>");
+    out.println("<td><input type=\"text\" name=\"possible-attendance\" placeholder=\"100\" value=\"" + 100 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"attendance\" value=\"" + 100 + "\"></td>");
+    out.println("<td>-/5%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Homework and Lab</td>");
-    out.println("<td><input type=\"text\" name=\"possible-hwl\" placeholder=\"210\" value=\"" + possibleHwl + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"hwl\" value=\"" + actualHwl + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"possible-hwl\" placeholder=\"210\" value=\"" + 210 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"hwl\" value=\"" + 210 + "\"></td>");
     out.println("<td>-/20%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Quizzes</td>");
-    out.println("<td><input type=\"text\" name=\"possible-quizzes\" placeholder=\"50\" value=\"" + possibleQuizzes + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"quizzes\" value=\"" + actualQuizzes + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"possible-quizzes\" placeholder=\"50\" value=\"" + 50 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"quizzes\" value=\"" + 35 + "\"></td>");
     out.println("<td>-/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Midterm</td>");
-    out.println("<td><input type=\"text\" name=\"possible-midterm\" placeholder=\"100\" value=\"" + possibleMidterm + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"midterm\" value=\"" + actualMidterm + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"possible-midterm\" placeholder=\"100\" value=\"" + 100 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"midterm\" value=\"" + 85 + "\"></td>");
     out.println("<td>-/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Final</td>");
-    out.println("<td><input type=\"text\" name=\"possible-final\" placeholder=\"100\" value=\"" + possibleFinal + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"final\" value=\"" + actualFinal + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"possible-final\" placeholder=\"100\" value=\"" + 100 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"final\" value=\"" + 80 + "\"></td>");
     out.println("<td>-/25%</td>");
     out.println("</tr>");
 
@@ -152,17 +152,15 @@ public class GradeCalculator extends HttpServlet {
       return;
     }
 
-    attendanceCalculation = (Double.valueOf(request.getParameter("attendance")) / 100) * .05;
-    hwlCalculation = (Double.parseDouble(request.getParameter("hwl")) / 210) * .2;
-    quizzesCalculation = (Double.parseDouble(request.getParameter("quizzes")) / 50) * .25;
-    midtermCalculation = (Double.parseDouble(request.getParameter("midterm")) / 100) * .25;
-    finalCalculation = (Double.parseDouble(actualFinal) / 100) * 25;
-
-    String attendanceTotal = Double.toString(attendanceCalculation);
-    String hwlTotal = Double.toString(hwlCalculation);
-    String quizzesTotal = Double.toString(quizzesCalculation);
-    String midtermTotal = Double.toString(midtermCalculation);
-    String finalTotal = Double.toString(finalCalculation);
+    try {
+      attendanceCalculation = ((Double.parseDouble(request.getParameter("attendance")) / 100) * .05) * 100;
+      hwlCalculation = ((Double.parseDouble(request.getParameter("hwl")) / 210) * .2) * 100;
+      quizzesCalculation = ((Double.parseDouble(request.getParameter("quizzes")) / 50) * .25) * 100;
+      midtermCalculation = ((Double.parseDouble(request.getParameter("midterm")) / 100) * .25) * 100;
+      finalCalculation = ((Double.parseDouble(actualFinal) / 100) * .25) * 100;
+    } catch (NumberFormatException e) {
+      e.printStackTrace();
+    }
     totalCalculation = attendanceCalculation + hwlCalculation + quizzesCalculation + midtermCalculation + finalCalculation;
 
     response.setContentType("text/html");
@@ -197,42 +195,43 @@ public class GradeCalculator extends HttpServlet {
     out.println("<td>Attendance</td>");
     out.println("<td><input type=\"text\" name=\"possible-attendance\" placeholder=\"100\" value=\"" + possibleAttendance + "\"></td>");
     out.println("<td><input type=\"text\" name=\"attendance\" value=\"" + actualAttendance + "\"></td>");
-    out.println("<td>" + attendanceTotal + "/20%</td>");
+    out.println("<td>" + attendanceCalculation + "/5%</td>");
+//    out.println("<td>" + String.format("%.2f", attendanceCalculation) + "/5%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Homework and Lab</td>");
     out.println("<td><input type=\"text\" name=\"possible-hwl\" placeholder=\"210\" value=\"" + possibleHwl + "\"></td>");
     out.println("<td><input type=\"text\" name=\"hwl\" value=\"" + actualHwl + "\"></td>");
-    out.println("<td>-/20%</td>");
+    out.println("<td>" + hwlCalculation + "/20%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Quizzes</td>");
     out.println("<td><input type=\"text\" name=\"possible-quizzes\" placeholder=\"50\" value=\"" + possibleQuizzes + "\"></td>");
     out.println("<td><input type=\"text\" name=\"quizzes\" value=\"" + actualQuizzes + "\"></td>");
-    out.println("<td>-/25%</td>");
+    out.println("<td>" + quizzesCalculation + "/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Midterm</td>");
     out.println("<td><input type=\"text\" name=\"possible-midterm\" placeholder=\"100\" value=\"" + possibleMidterm + "\"></td>");
     out.println("<td><input type=\"text\" name=\"midterm\" value=\"" + actualMidterm + "\"></td>");
-    out.println("<td>-/25%</td>");
+    out.println("<td>" + midtermCalculation + "/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Final</td>");
     out.println("<td><input type=\"text\" name=\"possible-final\" placeholder=\"100\" value=\"" + possibleFinal + "\"></td>");
     out.println("<td><input type=\"text\" name=\"final\" value=\"" + actualFinal + "\"></td>");
-    out.println("<td>-/25%</td>");
+    out.println("<td>" + finalCalculation + "/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Total</td>");
     out.println("<td/>");
     out.println("<td><input type=\"submit\" class=\"btn btn-primary\" name=\"calculate\" value=\"Calculate\" /></td>");
-    out.println("<td>-/100%</td>");
+    out.println("<td>" + totalCalculation + "/100%</td>");
     out.println("</tr");
 
     out.println("</table>");
