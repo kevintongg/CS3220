@@ -18,12 +18,6 @@ public class GradeCalculator extends HttpServlet {
 
     PrintWriter out = response.getWriter();
 
-    String error = (String) request.getAttribute("error");
-
-    if (error != null) {
-      out.println("<h1 style=\"color: red\">" + error + "</h1>");
-    }
-
     // Read values if they exist
     // Attendance
     String possibleAttendance = request.getParameter("possible-attendance") == null ? "" : request.getParameter("possible-attendance");
@@ -61,7 +55,7 @@ public class GradeCalculator extends HttpServlet {
     out.println("</div>");
 
     out.println("<form action=\"GradeCalculator\" method=\"post\">");
-    out.println("<table class=\"table table-hover\">");
+    out.println("<table class=\"table table-striped table-bordered table-hover\">");
     out.println("<tr>");
     out.println("<th>Category</th>");
     out.println("<th>Possible</th>");
@@ -145,7 +139,7 @@ public class GradeCalculator extends HttpServlet {
     double quizzesCalculation = 0;
     double midtermCalculation = 0;
     double finalCalculation = 0;
-    double totalCalculation = 0;
+    double totalCalculation;
 
     if (possibleAttendance == null || actualAttendance == null || possibleHwl == null || actualHwl == null || possibleQuizzes == null || actualQuizzes == null || possibleMidterm == null || actualMidterm == null || possibleFinal == null || actualFinal == null) {
       doGet(request, response);
@@ -153,14 +147,15 @@ public class GradeCalculator extends HttpServlet {
     }
 
     try {
-      attendanceCalculation = ((Double.parseDouble(request.getParameter("attendance")) / 100) * .05) * 100;
-      hwlCalculation = ((Double.parseDouble(request.getParameter("hwl")) / 210) * .2) * 100;
-      quizzesCalculation = ((Double.parseDouble(request.getParameter("quizzes")) / 50) * .25) * 100;
-      midtermCalculation = ((Double.parseDouble(request.getParameter("midterm")) / 100) * .25) * 100;
-      finalCalculation = ((Double.parseDouble(actualFinal) / 100) * .25) * 100;
+      attendanceCalculation = ((Double.parseDouble(request.getParameter("attendance")) / Double.parseDouble(request.getParameter("possible-attendance")) * .05) * 100);
+      hwlCalculation = ((Double.parseDouble(request.getParameter("hwl")) / Double.parseDouble(request.getParameter("possible-hwl"))) * .2) * 100;
+      quizzesCalculation = ((Double.parseDouble(request.getParameter("quizzes")) / Double.parseDouble(request.getParameter("possible-quizzes"))) * .25) * 100;
+      midtermCalculation = ((Double.parseDouble(request.getParameter("midterm")) / Double.parseDouble(request.getParameter("possible-midterm")) * .25) * 100);
+      finalCalculation = ((Double.parseDouble(request.getParameter("final")) / Double.parseDouble(request.getParameter("possible-final")) * .25) * 100);
     } catch (NumberFormatException e) {
       e.printStackTrace();
     }
+
     totalCalculation = attendanceCalculation + hwlCalculation + quizzesCalculation + midtermCalculation + finalCalculation;
 
     response.setContentType("text/html");
@@ -183,7 +178,7 @@ public class GradeCalculator extends HttpServlet {
     out.println("</div>");
 
     out.println("<form action=\"GradeCalculator\" method=\"post\">");
-    out.println("<table class=\"table table-hover\">");
+    out.println("<table class=\"table table-striped table-bordered table-hover\">");
     out.println("<tr>");
     out.println("<th>Category</th>");
     out.println("<th>Possible</th>");
@@ -195,43 +190,42 @@ public class GradeCalculator extends HttpServlet {
     out.println("<td>Attendance</td>");
     out.println("<td><input type=\"text\" name=\"possible-attendance\" placeholder=\"100\" value=\"" + possibleAttendance + "\"></td>");
     out.println("<td><input type=\"text\" name=\"attendance\" value=\"" + actualAttendance + "\"></td>");
-    out.println("<td>" + attendanceCalculation + "/5%</td>");
-//    out.println("<td>" + String.format("%.2f", attendanceCalculation) + "/5%</td>");
+    out.println("<td>" + String.format("%.2f", attendanceCalculation) + "/5%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Homework and Lab</td>");
     out.println("<td><input type=\"text\" name=\"possible-hwl\" placeholder=\"210\" value=\"" + possibleHwl + "\"></td>");
     out.println("<td><input type=\"text\" name=\"hwl\" value=\"" + actualHwl + "\"></td>");
-    out.println("<td>" + hwlCalculation + "/20%</td>");
+    out.println("<td>" + String.format("%.2f", hwlCalculation) + "/20%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Quizzes</td>");
     out.println("<td><input type=\"text\" name=\"possible-quizzes\" placeholder=\"50\" value=\"" + possibleQuizzes + "\"></td>");
     out.println("<td><input type=\"text\" name=\"quizzes\" value=\"" + actualQuizzes + "\"></td>");
-    out.println("<td>" + quizzesCalculation + "/25%</td>");
+    out.println("<td>" + String.format("%.2f", quizzesCalculation) + "/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Midterm</td>");
     out.println("<td><input type=\"text\" name=\"possible-midterm\" placeholder=\"100\" value=\"" + possibleMidterm + "\"></td>");
     out.println("<td><input type=\"text\" name=\"midterm\" value=\"" + actualMidterm + "\"></td>");
-    out.println("<td>" + midtermCalculation + "/25%</td>");
+    out.println("<td>" + String.format("%.2f", midtermCalculation) + "/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Final</td>");
     out.println("<td><input type=\"text\" name=\"possible-final\" placeholder=\"100\" value=\"" + possibleFinal + "\"></td>");
     out.println("<td><input type=\"text\" name=\"final\" value=\"" + actualFinal + "\"></td>");
-    out.println("<td>" + finalCalculation + "/25%</td>");
+    out.println("<td>" + String.format("%.2f", finalCalculation) + "/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Total</td>");
     out.println("<td/>");
     out.println("<td><input type=\"submit\" class=\"btn btn-primary\" name=\"calculate\" value=\"Calculate\" /></td>");
-    out.println("<td>" + totalCalculation + "/100%</td>");
+    out.println("<td>" + String.format("%.2f", totalCalculation) + "/100%</td>");
     out.println("</tr");
 
     out.println("</table>");
