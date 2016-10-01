@@ -1,6 +1,4 @@
-package requests;
-
-import models.GuestBookEntry;
+package store;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,33 +8,30 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/requests/DeleteEntry")
+@WebServlet("/store/DeleteEntry")
 @SuppressWarnings("unchecked")
 public class DeleteEntry extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    // Get the id of the element to be deleted
     int id = Integer.parseInt(request.getParameter("id"));
 
-    // Get a reference to our guest book
-    List<GuestBookEntry> entries = (List<GuestBookEntry>) getServletContext().getAttribute("entries");
+    List<Item> inventory = (List<Item>) getServletContext().getAttribute("inventory");
 
-    // Remove the element with the specified id
-    for (GuestBookEntry entry : entries) {
-      if (entry.getId() == id) {
-        entries.remove(entry);
+    for (Item item : inventory) {
+      if (item.getId() == id) {
+        inventory.remove(item);
         break;
       }
     }
 
-    // Send the user back to the Guest Book page
-    response.sendRedirect("GuestBook");
-
+    response.sendRedirect("Inventory");
   }
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
     doGet(request, response);
   }
 

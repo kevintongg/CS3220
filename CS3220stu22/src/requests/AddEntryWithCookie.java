@@ -1,7 +1,7 @@
 package requests;
 
 import com.sun.istack.internal.Nullable;
-import model.GuestBookEntry;
+import models.GuestBookEntry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -73,6 +73,7 @@ public class AddEntryWithCookie extends HttpServlet {
     out.println("</html>");
   }
 
+  @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     // Read the name and message that was submitted by the form

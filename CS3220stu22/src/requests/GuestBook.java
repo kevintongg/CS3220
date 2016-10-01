@@ -1,9 +1,6 @@
 package requests;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import models.GuestBookEntry;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -12,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import model.GuestBookEntry;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet("/requests/GuestBook")
@@ -24,7 +23,7 @@ public class GuestBook extends HttpServlet {
     super.init(config);
 
     // Create a local list of guest book entries
-    List<GuestBookEntry> entries = new ArrayList<GuestBookEntry>();
+    List<GuestBookEntry> entries = new ArrayList<>();
 
     // Pre-populate the guestbook with a few entries
     entries.add(new GuestBookEntry("John Doe", "Hello"));
@@ -35,6 +34,7 @@ public class GuestBook extends HttpServlet {
     getServletContext().setAttribute("entries", entries);
   }
 
+  @SuppressWarnings("unchecked")
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     // Get a reference to the application scope
@@ -73,7 +73,7 @@ public class GuestBook extends HttpServlet {
 
     // Print one table row <tr> for every entry in our guest book.
 
-    for ( GuestBookEntry entry : entries){
+    for (GuestBookEntry entry : entries) {
       out.println("<tr>");
       out.println("  <td>" + entry.getName() + "</td>");
       out.println("  <td>" + entry.getMessage() + "</td>");
@@ -96,6 +96,7 @@ public class GuestBook extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
+
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
