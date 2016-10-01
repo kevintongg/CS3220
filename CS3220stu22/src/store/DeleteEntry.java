@@ -27,12 +27,13 @@ public class DeleteEntry extends HttpServlet {
     }
 
     response.sendRedirect("Inventory");
+
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     doGet(request, response);
-  }
 
+  }
 }

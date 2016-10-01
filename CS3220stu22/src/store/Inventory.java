@@ -23,6 +23,7 @@ public class Inventory extends HttpServlet {
     ArrayList<Item> inventory = new ArrayList<>();
 
     inventory.add(new Item("Hello", "Hello", 1, 1));
+    inventory.add(new Item("Meme", "dank", 1, 1));
 
     getServletContext().setAttribute("inventory", inventory);
   }
@@ -109,15 +110,25 @@ public class Inventory extends HttpServlet {
           "\t\t\t<th>Actions</th>\n" +
           "\t\t</tr>\n");
 
-      for (Item item : inventory) {
-        out.println("\t\t<tr>");
-        out.println("\t\t\t<td>" + item.getName() + "</td>");
-        out.println("\t\t\t<td>" + item.getDescription() + "</td>");
-        out.println("\t\t\t<td>" + item.getQuantity() + "</td>");
-        out.println("\t\t\t<td>" + item.getPrice() + "</td>");
-        out.println("\t\t\t<td><a href=\"DeleteEntry?id=" + item.getId() + "\">Delete</a>");
+      if (request.getAttribute("query") == null) {
+        for (Item item : inventory) {
+          out.println("\t\t<tr>");
+          out.println("\t\t\t<td>" + item.getName() + "</td>");
+          out.println("\t\t\t<td>" + item.getDescription() + "</td>");
+          out.println("\t\t\t<td>" + item.getQuantity() + "</td>");
+          out.println("\t\t\t<td>" + item.getPrice() + "</td>");
+          out.println("\t\t\t<td><a href=\"DeleteEntry?id=" + item.getId() + "\">Delete</a>");
+        }
+      } else {
+        for (Item item : inventory) {
+          out.println("\t\t<tr>");
+          out.println("\t\t\t<td>" + item.getName().contains(request.getParameter("query")) + "</td>");
+          out.println("\t\t\t<td>" + item.getDescription().contains(request.getParameter("query")) + "</td>");
+          out.println("\t\t\t<td>" + item.getQuantity() + "</td>");
+          out.println("\t\t\t<td>" + item.getPrice() + "</td>");
+          out.println("\t\t\t<td><a href=\"DeleteEntry?id=" + item.getId() + "\">Delete</a>");
+        }
       }
-
 
       out.println("\t</table>");
 
