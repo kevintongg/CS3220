@@ -23,7 +23,7 @@ public class Inventory extends HttpServlet {
     ArrayList<Item> inventory = new ArrayList<>();
 
     inventory.add(new Item("Hello", "Hello", 1, 1));
-    inventory.add(new Item("Meme", "dank", 1, 1));
+    inventory.add(new Item("CSULA", "Los Angeles", 1, 1));
 
     getServletContext().setAttribute("inventory", inventory);
   }

@@ -20,13 +20,6 @@ public class AddItem extends HttpServlet {
     String quantity = request.getParameter("quantity") == null ? "" : request.getParameter("quantity");
     String price = request.getParameter("price") == null ? "" : request.getParameter("price");
 
-
-    String nameError = (String) request.getAttribute("name-error");
-    String descriptionError = (String) request.getAttribute("description-error");
-    String quantityError = (String) request.getAttribute("quantity-error");
-    String priceError = (String) request.getAttribute("price-error");
-
-
     response.setContentType("text/html");
 
     PrintWriter out = response.getWriter();
@@ -53,28 +46,10 @@ public class AddItem extends HttpServlet {
         "\t\t\t</tr>\n" +
         "\n" +
         "\t\t\t<tr>\n");
-    if (nameError != null) {
-      out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\" value=\">" + "<h5 style=\"color: red\">" + quantityError + "</h5>" + "</td>\n");
-    } else {
-      out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\" value=\"" + name + "\"></td>\n");
-    }
-
-    if (descriptionError != null) {
-      out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\"></textarea><h5 style=\"color: red\">" + descriptionError + "</h5>" + "</td>\n");
-    } else {
-      out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\">" + description + "</textarea></td>\n");
-    }
-    if (quantityError != null) {
-      out.println("\t\t\t\t<td><input type=\"text\" name=\"quantity\" placeholder=\"Quantity\">" + "<h5 style=\"color: red\">" + quantityError + "</h5>" + "</td>\n");
-    } else {
-      out.println("\t\t\t\t<td><input type=\"text\" name=\"quantity\" placeholder=\"Quantity\" value=\"" + quantity + "\"></td>\n");
-    }
-
-    if (priceError != null) {
-      out.println("\t\t\t\t<td><input type=\"text\" name=\"price\" placeholder=\"Price\">" + priceError + "</td>\n");
-    } else {
-      out.println("\t\t\t\t<td><input type=\"text\" name=\"price\" placeholder=\"Price\" value=\"" + price + "\"></td>\n");
-    }
+    out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\" value=\"" + name + "\"></td>\n");
+    out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\">" + description + "</textarea></td>\n");
+    out.println("\t\t\t\t<td><input type=\"text\" name=\"quantity\" placeholder=\"Quantity\" value=\"" + quantity + "\"></td>\n");
+    out.println("\t\t\t\t<td><input type=\"text\" name=\"price\" placeholder=\"Price\" value=\"" + price + "\"></td>\n");
 
     out.println("\t\t\t</tr>\n" +
         "\t\t</table>\n" +
@@ -95,11 +70,6 @@ public class AddItem extends HttpServlet {
     String description = request.getParameter("description");
     String quantity = request.getParameter("quantity");
     String price = request.getParameter("price");
-
-    String nameError = (String) request.getAttribute("name-error");
-    String descriptionError = (String) request.getAttribute("description-error");
-    String quantityError = (String) request.getAttribute("quantity-error");
-    String priceError = (String) request.getAttribute("price-error");
 
     int quantityAsInt;
     double priceAsDouble;
@@ -155,23 +125,19 @@ public class AddItem extends HttpServlet {
         "\t\t\t</tr>\n" +
         "\n" +
         "\t\t\t<tr>\n");
+
     if (request.getParameter("name") != null) {
       out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\" value=\"" + name + "\"></td>\n");
-    } else {
-      if (request.getParameter("name").isEmpty() || request.getParameter("name") == null) {
-        request.setAttribute("name-error", "Please enter a valid name!");
-      }
-      out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\">" + "<h5 style=\"color: red\">" + nameError + "</td>\n");
+    } else if (request.getParameter("name").isEmpty() || request.getParameter("name") == null) {
+      out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\">" + "<h5 style=\"color: red\">Please enter a valid name!</td>\n");
     }
 
     if (request.getParameter("description") != null) {
       out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\">" + description + "</textarea></td>\n");
     } else if (request.getParameter("description").contains("")) {
-//      request.setAttribute("description-error", "Please enter a valid description!");
       out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\"></textarea>" + "<h5 style=\"color : red\">Please enter a valid description!</h5></td>\n");
     }
-//      out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\"></textarea>" + "<h5 style=\"color : red\">" + descriptionError + "</td>\n");
-//    }
+
     if (request.getParameter("quantity") != null) {
       try {
         quantityAsInt = Integer.parseInt(request.getParameter("quantity"));
