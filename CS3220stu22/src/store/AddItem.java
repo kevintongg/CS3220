@@ -155,7 +155,7 @@ public class AddItem extends HttpServlet {
         "\t\t\t</tr>\n" +
         "\n" +
         "\t\t\t<tr>\n");
-    if (request.getParameter("description") != null) {
+    if (request.getParameter("name") != null) {
       out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\" value=\"" + name + "\"></td>\n");
     } else {
       if (request.getParameter("name").isEmpty() || request.getParameter("name") == null) {
@@ -163,6 +163,7 @@ public class AddItem extends HttpServlet {
       }
       out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\">" + "<h5 style=\"color: red\">" + nameError + "</td>\n");
     }
+
     out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" value=\"" + description + "\" rows=\"1\"></textarea></td>\n");
 
     if (request.getParameter("quantity") != null) {
