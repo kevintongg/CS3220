@@ -22,8 +22,8 @@ public class Inventory extends HttpServlet {
 
     ArrayList<Item> inventory = new ArrayList<>();
 
-    inventory.add(new Item("Hello", "Hello", 1, 1));
-    inventory.add(new Item("CSULA", "Los Angeles", 1, 1));
+    inventory.add(new Item("Hello", "Hello", 123, 156));
+    inventory.add(new Item("CSULA", "Los Angeles", 789, 1000));
 
     getServletContext().setAttribute("inventory", inventory);
   }
@@ -34,6 +34,8 @@ public class Inventory extends HttpServlet {
     ServletContext context = this.getServletContext();
 
     List<Item> inventory = (List<Item>) context.getAttribute("inventory");
+
+    String query = request.getParameter("query") == null ? "" : request.getParameter("query");
 
     if (inventory.isEmpty()) {
       response.setContentType("text/html");
@@ -46,7 +48,7 @@ public class Inventory extends HttpServlet {
       out.println("\t<meta charset=\"utf-8\">");
       out.println("\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
 
-      out.println("\t<title>Inventory</title>");
+      out.println("\t<title>Store Inventory</title>");
 
       out.println("<!-- Latest compiled and minified CSS -->\n" +
           "\t<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"\n" +
@@ -80,7 +82,7 @@ public class Inventory extends HttpServlet {
       out.println("\t<meta charset=\"utf-8\">");
       out.println("\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
 
-      out.println("\t<title>Inventory</title>");
+      out.println("\t<title>Store Inventory</title>");
 
       out.println("<!-- Latest compiled and minified CSS -->\n" +
           "\t<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"\n" +
@@ -110,7 +112,7 @@ public class Inventory extends HttpServlet {
           "\t\t\t<th>Actions</th>\n" +
           "\t\t</tr>\n");
 
-      if (request.getAttribute("query") == null) {
+      if (query.isEmpty() || !query.contains(request.getParameter("query"))) {
         for (Item item : inventory) {
           out.println("\t\t<tr>");
           out.println("\t\t\t<td>" + item.getName() + "</td>");
@@ -122,8 +124,8 @@ public class Inventory extends HttpServlet {
       } else {
         for (Item item : inventory) {
           out.println("\t\t<tr>");
-          out.println("\t\t\t<td>" + item.getName().contains(request.getParameter("query")) + "</td>");
-          out.println("\t\t\t<td>" + item.getDescription().contains(request.getParameter("query")) + "</td>");
+          out.println("\t\t\t<td>" + item.getName().contains(query) + "</td>");
+          out.println("\t\t\t<td>" + item.getDescription().contains(query) + "</td>");
           out.println("\t\t\t<td>" + item.getQuantity() + "</td>");
           out.println("\t\t\t<td>" + item.getPrice() + "</td>");
           out.println("\t\t\t<td><a href=\"DeleteEntry?id=" + item.getId() + "\">Delete</a>");

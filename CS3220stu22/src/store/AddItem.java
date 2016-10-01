@@ -128,7 +128,7 @@ public class AddItem extends HttpServlet {
 
     if (request.getParameter("name") != null) {
       out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\" value=\"" + name + "\"></td>\n");
-    } else if (request.getParameter("name").isEmpty() || request.getParameter("name") == null) {
+    } else if (request.getParameter("name").contains("")) {
       out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\">" + "<h5 style=\"color: red\">Please enter a valid name!</td>\n");
     }
 
