@@ -1,4 +1,4 @@
-package store;
+package homework;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/store/Inventory")
+@WebServlet("/Store/Inventory")
 public class Inventory extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class Inventory extends HttpServlet {
 
     List<Item> inventory = (List<Item>) context.getAttribute("inventory");
 
-    String query = request.getParameter("query") == null ? "" : request.getParameter("query");
+//    String query = request.getParameter("query") == null ? "" : request.getParameter("query");
 
     if (inventory.isEmpty()) {
       response.setContentType("text/html");
@@ -112,8 +112,12 @@ public class Inventory extends HttpServlet {
           "\t\t\t<th>Actions</th>\n" +
           "\t\t</tr>\n");
 
-      if (query.isEmpty() || !query.contains(request.getParameter("query"))) {
-        for (Item item : inventory) {
+
+      for (Item item : inventory) {
+
+        String query = request.getParameter("query");
+
+        if (query == null || item.getName().contains(query.trim()) || item.getDescription().contains(query.trim())) {
           out.println("\t\t<tr>");
           out.println("\t\t\t<td>" + item.getName() + "</td>");
           out.println("\t\t\t<td>" + item.getDescription() + "</td>");
@@ -121,15 +125,15 @@ public class Inventory extends HttpServlet {
           out.println("\t\t\t<td>" + item.getPrice() + "</td>");
           out.println("\t\t\t<td><a href=\"DeleteEntry?id=" + item.getId() + "\">Delete</a>");
         }
-      } else {
-        for (Item item : inventory) {
-          out.println("\t\t<tr>");
-          out.println("\t\t\t<td>" + item.getName().contains(query) + "</td>");
-          out.println("\t\t\t<td>" + item.getDescription().contains(query) + "</td>");
-          out.println("\t\t\t<td>" + item.getQuantity() + "</td>");
-          out.println("\t\t\t<td>" + item.getPrice() + "</td>");
-          out.println("\t\t\t<td><a href=\"DeleteEntry?id=" + item.getId() + "\">Delete</a>");
-        }
+//      } else {
+//        for (Item item : inventory) {
+//          out.println("\t\t<tr>");
+//          out.println("\t\t\t<td>" + item.getName().contains(query) + "</td>");
+//          out.println("\t\t\t<td>" + item.getDescription().contains(query) + "</td>");
+//          out.println("\t\t\t<td>" + item.getQuantity() + "</td>");
+//          out.println("\t\t\t<td>" + item.getPrice() + "</td>");
+//          out.println("\t\t\t<td><a href=\"DeleteEntry?id=" + item.getId() + "\">Delete</a>");
+//        }
       }
 
       out.println("\t</table>");

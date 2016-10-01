@@ -1,4 +1,4 @@
-package store;
+package homework;
 
 public class Item {
 

@@ -1,4 +1,4 @@
-package store;
+package homework;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/store/AddItem")
+@WebServlet("/Store/AddItem")
 public class AddItem extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    String name = request.getParameter("name") == null ? "" : request.getParameter("name");
+    String name = request.getParameter("name") == null || request.getAttribute("name-error") != null ? "" : request.getParameter("name");
     String description = request.getParameter("description") == null ? "" : request.getParameter("description");
     String quantity = request.getParameter("quantity") == null ? "" : request.getParameter("quantity");
     String price = request.getParameter("price") == null ? "" : request.getParameter("price");
@@ -46,7 +46,11 @@ public class AddItem extends HttpServlet {
         "\t\t\t</tr>\n" +
         "\n" +
         "\t\t\t<tr>\n");
-    out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\" value=\"" + name + "\"></td>\n");
+    out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\" value=\"" + name + "\">");
+    if (request.getAttribute("name-error") != null) {
+      out.println("<p style=\"color: red\">Please enter a valid name!</p>");
+    }
+    out.println("</td>\n");
     out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\">" + description + "</textarea></td>\n");
     out.println("\t\t\t\t<td><input type=\"text\" name=\"quantity\" placeholder=\"Quantity\" value=\"" + quantity + "\"></td>\n");
     out.println("\t\t\t\t<td><input type=\"text\" name=\"price\" placeholder=\"Price\" value=\"" + price + "\"></td>\n");
@@ -71,33 +75,20 @@ public class AddItem extends HttpServlet {
     String quantity = request.getParameter("quantity");
     String price = request.getParameter("price");
 
+    boolean hasError = false; // Assume that we start with no errors
+
+    if (name == null || name.isEmpty()) {
+      hasError = true;
+      request.setAttribute("name-error", true);
+    }
+
     int quantityAsInt;
     double priceAsDouble;
 
-    if (request.getParameter("name") == null || request.getParameter("description") == null || request.getParameter("quantity") == null || request.getParameter("price") == null) {
-      doGet(request, response);
-      return;
-    }
-
-    if (request.getParameter("name").isEmpty() || request.getParameter("name") == null) {
-      request.setAttribute("name-error", "Please enter a valid name!");
-    }
-
-    if (!request.getParameter("name").isEmpty() && name.trim().length() > 0 && !request.getParameter("description").isEmpty() && description.trim().length() > 0 && !quantity.matches("\\D") && quantity.trim().length() > 0 && !price.matches("\\D") && price.trim().length() > 0) {
-      try {
-        quantityAsInt = Integer.parseInt(request.getParameter("quantity"));
-        priceAsDouble = Double.parseDouble(request.getParameter("price"));
-
-        List<Item> list = (List<Item>) request.getServletContext().getAttribute("inventory");
-
-        list.add(new Item(name, description, quantityAsInt, priceAsDouble));
-
-        response.sendRedirect("Inventory");
-
-      } catch (NumberFormatException e) {
-        e.printStackTrace();
-      }
-    }
+//    if (request.getParameter("name") == null || request.getParameter("description") == null || request.getParameter("quantity") == null || request.getParameter("price") == null) {
+//      doGet(request, response);
+//      return;
+//    }
 
     response.setContentType("text/html");
 
@@ -128,14 +119,15 @@ public class AddItem extends HttpServlet {
 
     if (request.getParameter("name") != null) {
       out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\" value=\"" + name + "\"></td>\n");
-    } else if (request.getParameter("name").contains("")) {
-      out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\">" + "<h5 style=\"color: red\">Please enter a valid name!</td>\n");
+//    } else if (request.getParameter("name").contains("")) {
+    } else if (request.getAttribute("name-error") != null) {
+      out.println("\t\t\t\t<td><input type=\"text\" name=\"name\" placeholder=\"Name\">" + "<p style=\"color: red\">Please enter a valid name!</td>\n");
     }
 
     if (request.getParameter("description") != null) {
       out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\">" + description + "</textarea></td>\n");
     } else if (request.getParameter("description").contains("")) {
-      out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\"></textarea>" + "<h5 style=\"color : red\">Please enter a valid description!</h5></td>\n");
+      out.println("\t\t\t\t<td><textarea name=\"description\" placeholder=\"Description\" rows=\"1\"></textarea>" + "<p style=\"color : red\">Please enter a valid description!</p></td>\n");
     }
 
     if (request.getParameter("quantity") != null) {
@@ -143,7 +135,7 @@ public class AddItem extends HttpServlet {
         quantityAsInt = Integer.parseInt(request.getParameter("quantity"));
         out.println("\t\t\t\t<td><input type=\"text\" name=\"quantity\" placeholder=\"Quantity\" value=\"" + quantityAsInt + "\"></td>\n");
       } catch (NumberFormatException e) {
-        out.println("\t\t\t\t<td><input type=\"text\" name=\"quantity\" placeholder=\"Quantity\">" + "<h5 style=\"color: red\">Please enter a valid quantity!</h5>" + "</td>\n");
+        out.println("\t\t\t\t<td><input type=\"text\" name=\"quantity\" placeholder=\"Quantity\">" + "<p style=\"color: red\">Please enter a valid quantity!</p>" + "</td>\n");
       }
     } else {
       out.println("\t\t\t\t<td><input type=\"text\" name=\"quantity\" placeholder=\"Quantity\"></td>\n");
@@ -154,7 +146,7 @@ public class AddItem extends HttpServlet {
         priceAsDouble = Double.parseDouble(request.getParameter("price"));
         out.println("\t\t\t\t<td><input type=\"text\" name=\"price\" placeholder=\"Price\" value=\"" + String.format("%.2f", priceAsDouble) + "\"></td>\n");
       } catch (NumberFormatException e) {
-        out.println("\t\t\t\t<td><input type=\"text\" name=\"price\" placeholder=\"Price\"><h5 style=\"color: red\">Please enter a valid price!</h5></td>\n");
+        out.println("\t\t\t\t<td><input type=\"text\" name=\"price\" placeholder=\"Price\"><p style=\"color: red\">Please enter a valid price!</p></td>\n");
       }
     } else {
       out.println("\t\t\t\t<td><input type=\"text\" name=\"price\" placeholder=\"Price\"></td>\n");
@@ -169,6 +161,27 @@ public class AddItem extends HttpServlet {
 
     out.println("</body>");
     out.println("</html>");
+
+//    if (!request.getParameter("name").isEmpty() && name.trim().length() > 0 && !request.getParameter("description").isEmpty() && description.trim().length() > 0 && !quantity.matches("\\D") && quantity.trim().length() > 0 && !price.matches("\\D") && price.trim().length() > 0)
+    if (!hasError){
+      try {
+        quantityAsInt = Integer.parseInt(request.getParameter("quantity"));
+        priceAsDouble = Double.parseDouble(request.getParameter("price"));
+
+        List<Item> list = (List<Item>) request.getServletContext().getAttribute("inventory");
+
+        list.add(new Item(name, description, quantityAsInt, priceAsDouble));
+
+        response.sendRedirect("Inventory");
+
+      } catch (NumberFormatException e) {
+        doGet(request, response);
+        return;
+      }
+//    } else {
+//      doGet(request, response);
+//      return;
+    }
 
   }
 }
