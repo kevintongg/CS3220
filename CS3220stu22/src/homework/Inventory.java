@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/Store/Inventory")
+@WebServlet(urlPatterns = "/store/Inventory", loadOnStartup = 1)
 public class Inventory extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -22,8 +22,8 @@ public class Inventory extends HttpServlet {
 
     ArrayList<Item> inventory = new ArrayList<>();
 
-    inventory.add(new Item("Hello", "Hello", 123, 156));
-    inventory.add(new Item("CSULA", "Los Angeles", 789, 1000));
+    inventory.add(new Item("qwe", ";lte3", 123, 456));
+    inventory.add(new Item("abc", "los Angeles", 123, 456));
 
     getServletContext().setAttribute("inventory", inventory);
   }
@@ -34,8 +34,6 @@ public class Inventory extends HttpServlet {
     ServletContext context = this.getServletContext();
 
     List<Item> inventory = (List<Item>) context.getAttribute("inventory");
-
-//    String query = request.getParameter("query") == null ? "" : request.getParameter("query");
 
     if (inventory.isEmpty()) {
       response.setContentType("text/html");
@@ -58,17 +56,17 @@ public class Inventory extends HttpServlet {
       out.println("<body>");
 
       out.println("<div class=\"container\">\n" +
-          "<div class=\"page-header\">\n" +
+          "<div class=\"page-header text-center\">\n" +
           "<h1>Inventory</h1>\n" +
           "</div>");
 
-      out.println("<h3>");
+      out.println("<h2 class=\"text-center\">");
       out.println("There are no items in your inventory!");
-      out.println("</h3>");
+      out.println("</h2>");
 
       out.println("<br/>");
 
-      out.println("<h4><a style=\"text-decoration: none\" href=\"AddItem\">Add Item</a></h4>");
+      out.println("<h3 class=\"text-center\"><a style=\"text-decoration: none\" href=\"AddItem\">Add Item</a></h3>");
 
       out.println("</body>");
     } else {
@@ -112,12 +110,11 @@ public class Inventory extends HttpServlet {
           "\t\t\t<th>Actions</th>\n" +
           "\t\t</tr>\n");
 
-
       for (Item item : inventory) {
 
         String query = request.getParameter("query");
 
-        if (query == null || item.getName().contains(query.trim()) || item.getDescription().contains(query.trim())) {
+        if (query == null || item.getName().toLowerCase().contains(query.trim()) || item.getDescription().toLowerCase().contains(query.trim())) {
           out.println("\t\t<tr>");
           out.println("\t\t\t<td>" + item.getName() + "</td>");
           out.println("\t\t\t<td>" + item.getDescription() + "</td>");
@@ -125,15 +122,6 @@ public class Inventory extends HttpServlet {
           out.println("\t\t\t<td>" + item.getPrice() + "</td>");
           out.println("\t\t\t<td><a href=\"DeleteEntry?id=" + item.getId() + "\">Delete</a>");
         }
-//      } else {
-//        for (Item item : inventory) {
-//          out.println("\t\t<tr>");
-//          out.println("\t\t\t<td>" + item.getName().contains(query) + "</td>");
-//          out.println("\t\t\t<td>" + item.getDescription().contains(query) + "</td>");
-//          out.println("\t\t\t<td>" + item.getQuantity() + "</td>");
-//          out.println("\t\t\t<td>" + item.getPrice() + "</td>");
-//          out.println("\t\t\t<td><a href=\"DeleteEntry?id=" + item.getId() + "\">Delete</a>");
-//        }
       }
 
       out.println("\t</table>");
