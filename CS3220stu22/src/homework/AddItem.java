@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/store/AddItem")
+@WebServlet(urlPatterns = "/Store/AddItem")
 public class AddItem extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -39,13 +39,13 @@ public class AddItem extends HttpServlet {
         "\t</div>\n" +
         "\n" +
         "\t<form action=\"AddItem\" method=\"post\">\n" +
-        "\t\t<table class=\"table table-striped table-bordered table-hover text\" border=\"1\">\n" +
+        "\t\t<table class=\"table table-striped table-bordered table-hover text-center\" border=\"1\">\n" +
         "\t\t\t<tr>\n" +
-        "\t\t\t\t<th>Name</th>\n" +
-        "\t\t\t\t<th>Description</th>\n" +
-        "\t\t\t\t<th>Quantity</th>\n" +
-        "\t\t\t\t<th>Price</th>\n" +
-        "\t\t\t\t<th>Action</th>" +
+        "\t\t\t\t<th class=\"text-center\">Name</th>\n" +
+        "\t\t\t\t<th class=\"text-center\">Description</th>\n" +
+        "\t\t\t\t<th class=\"text-center\">Quantity</th>\n" +
+        "\t\t\t\t<th class=\"text-center\">Price</th>\n" +
+        "\t\t\t\t<th class=\"text-center\">Action</th>" +
         "\t\t\t</tr>\n" +
         "\n" +
         "\t\t\t<tr>\n");
@@ -120,8 +120,9 @@ public class AddItem extends HttpServlet {
     double priceAsNum;
 
     try {
-      if (price != null)
+      if (price != null) {
         priceAsNum = Double.parseDouble(price);
+      }
     } catch (NumberFormatException e) {
       hasError = true;
       request.setAttribute("priceError", true);

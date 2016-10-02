@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/store/Inventory", loadOnStartup = 1)
+@WebServlet(urlPatterns = "/Store/Inventory", loadOnStartup = 1)
 public class Inventory extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -21,9 +21,6 @@ public class Inventory extends HttpServlet {
     super.init(config);
 
     ArrayList<Item> inventory = new ArrayList<>();
-
-    inventory.add(new Item("qwe", ";lte3", 123, 456));
-    inventory.add(new Item("abc", "los Angeles", 123, 456));
 
     getServletContext().setAttribute("inventory", inventory);
   }
@@ -60,9 +57,9 @@ public class Inventory extends HttpServlet {
           "<h1>Inventory</h1>\n" +
           "</div>");
 
-      out.println("<h2 class=\"text-center\">");
+      out.println("<h3 class=\"text-center\">");
       out.println("There are no items in your inventory!");
-      out.println("</h2>");
+      out.println("</h3>");
 
       out.println("<br/>");
 
@@ -91,23 +88,23 @@ public class Inventory extends HttpServlet {
 
       out.println("<div class=\"container\">\n" +
           "\t<div class=\"page-header\">\n" +
-          "\t\t<h1>Inventory</h1>\n" +
+          "\t\t<h1 class=\"text-center\">Inventory</h1>\n" +
           "\t</div>");
 
       out.println("<form class=\"text-center\" action=\"Inventory\" method=\"get\">\n" +
           "\t\t<input class=\"text-center\" type=\"text\" placeholder=\"Search Items\" name=\"query\">\n" +
-          "\t\t<input type=\"submit\" value=\"Search\">\n" +
+          "\t\t<input class=\"btn btn-default btn-sm\" type=\"submit\" value=\"Search\"> \n" +
           "\t</form>\n" +
           "\n" +
           "\t<br/>\n" +
           "\n" +
-          "\t<table class=\"table table-striped table-bordered table-hover text\" border=\"1\">\n" +
+          "\t<table class=\"table table-striped table-bordered table-hover text-center\" border=\"1\">\n" +
           "\t\t<tr>\n" +
-          "\t\t\t<th>Name</th>\n" +
-          "\t\t\t<th>Description</th>\n" +
-          "\t\t\t<th>Quantity</th>\n" +
-          "\t\t\t<th>Price</th>\n" +
-          "\t\t\t<th>Actions</th>\n" +
+          "\t\t\t<th class=\"text-center\">Name</th>\n" +
+          "\t\t\t<th class=\"text-center\">Description</th>\n" +
+          "\t\t\t<th class=\"text-center\">Quantity</th>\n" +
+          "\t\t\t<th class=\"text-center\">Price</th>\n" +
+          "\t\t\t<th class=\"text-center\">Actions</th>\n" +
           "\t\t</tr>\n");
 
       for (Item item : inventory) {
