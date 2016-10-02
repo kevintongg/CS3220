@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Inventory</title>
+	<title>Login</title>
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -15,27 +15,24 @@
 <body>
 <div class="container">
 	<div class="page-header">
-		<h1>Inventory</h1>
+		<h1>Login</h1>
 	</div>
 
-	<form class="text-center" action="Inventory" method="get">
-		<input class="text-center" type="text" placeholder="Search Items" name="query">
-		<input type="submit" value="Search">
+	<form class="form-inline" method="post">
+		<div class="form-group">
+			<input type="email" class="form-control" name="email" placeholder="Email">
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control" name="password" placeholder="Password">
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="rememberMe"> Remember me
+			</label>
+		</div>
+		<button type="submit" class="btn btn-default">Sign in</button>
 	</form>
 
-	<br/>
-
-	<table class="table table-striped table-bordered table-hover text" border="1">
-		<tr>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Quantity</th>
-			<th>Price</th>
-			<th>Actions</th>
-		</tr>
-	</table>
-
-	<h4 class="text-center"><a style="text-decoration: none" href="AddItem">Add Item</a></h4>
 </div>
 </body>
 </html>

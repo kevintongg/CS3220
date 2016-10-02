@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/labs/AboutMe")
+@WebServlet("/Labs/AboutMe")
 public class AboutMe extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
