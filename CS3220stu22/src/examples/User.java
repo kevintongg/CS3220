@@ -1,4 +1,4 @@
-package homework.examples;
+package examples;
 
 public class User {
 

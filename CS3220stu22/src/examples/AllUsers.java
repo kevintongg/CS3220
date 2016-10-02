@@ -1,4 +1,4 @@
-package homework.examples;
+package examples;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
