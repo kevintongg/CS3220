@@ -45,6 +45,7 @@ public class AddItem extends HttpServlet {
         "\t\t\t\t<th>Description</th>\n" +
         "\t\t\t\t<th>Quantity</th>\n" +
         "\t\t\t\t<th>Price</th>\n" +
+        "\t\t\t\t<th>Action</th>" +
         "\t\t\t</tr>\n" +
         "\n" +
         "\t\t\t<tr>\n");

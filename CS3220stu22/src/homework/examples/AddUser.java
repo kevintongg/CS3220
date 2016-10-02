@@ -1,7 +1,5 @@
 package homework.examples;
 
-import homework.User;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +31,7 @@ public class AddUser extends HttpServlet {
 
     // Do we display an error message?
     if (request.getAttribute("nameError") != null) {
-      out.println("<p style=\"color:#f00;\">Please enter your full name</p>");
+      out.println("<p style='color:#f00;'>Please enter your full name</p>");
     }
 
 
@@ -52,7 +50,7 @@ public class AddUser extends HttpServlet {
     out.println("<input type='password' name='password2' placeholder='Enter the password again' /> <br />");
     out.println("<input type='submit' value='Add User' />");
     out.println("</form>");
-    out.println("</body></html>");
+    out.println("</body></html");
   }
 
   /**
@@ -114,6 +112,4 @@ public class AddUser extends HttpServlet {
     }
 
   }
-
-
 }

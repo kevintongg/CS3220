@@ -1,7 +1,4 @@
 package homework.examples;
-
-import homework.User;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,9 +29,7 @@ public class AllUsers extends HttpServlet {
     getServletContext().setAttribute("users", users);
   }
 
-  /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-   */
+  @SuppressWarnings("unchecked")
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     response.setContentType("text/html");
@@ -72,7 +67,6 @@ public class AllUsers extends HttpServlet {
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     doGet(request, response);
   }
 
