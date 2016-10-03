@@ -1,4 +1,5 @@
 package examples;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/Store/AllUsers"}, loadOnStartup = 1)
+@WebServlet(urlPatterns = "/Store/AllUsers")
 public class AllUsers extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -69,5 +70,4 @@ public class AllUsers extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
-
 }

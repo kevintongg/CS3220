@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/Store/AddUser"})
+@WebServlet(urlPatterns = "/Store/AddUser")
 public class AddUser extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,6 @@ public class AddUser extends HttpServlet {
       out.println("<p style='color:#f00;'>Please enter your full name</p>");
     }
 
-
     // If the 'fullName' parameter exists, let's use it as the default value
     // Otherwise, use the empty string
     String email = request.getParameter("email") == null || request.getAttribute("email") != null
@@ -53,9 +52,6 @@ public class AddUser extends HttpServlet {
     out.println("</body></html");
   }
 
-  /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-   */
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     boolean hasError = false; // Assume that we start with no errors
@@ -103,7 +99,6 @@ public class AddUser extends HttpServlet {
     // Redisplay the form if we have errors
     if (hasError) {
       doGet(request, response);
-      return;
     } else {
       // Cool, let's add a new user
       List<User> users = (List<User>) getServletContext().getAttribute("users");

@@ -4,10 +4,10 @@ public class User {
 
   private static int count = 0;
 
-  int id;
-  String firstName, lastName;
-  String email;
-  String password;
+  private int id;
+  private String firstName, lastName;
+  private String email;
+  private String password;
 
   public User(String firstName, String lastName, String email, String password) {
     this.id = count++;

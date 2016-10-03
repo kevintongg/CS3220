@@ -1,12 +1,12 @@
-package homework;
+package store;
 
 public class User {
 
   private static int count = 0;
 
-  int id;
-  String email;
-  String password;
+  private int id;
+  private String email;
+  private String password;
 
   public User(String email, String password) {
     this.id = count++;
