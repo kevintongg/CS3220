@@ -1,6 +1,7 @@
 package homework;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -94,9 +95,11 @@ public class Login extends HttpServlet {
   @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    ServletContext context = this.getServletContext();
+
     HttpSession session = request.getSession();
 
-    List<User> users = (ArrayList<User>) request.getAttribute("users");
+    List<User> users = (ArrayList<User>) context.getAttribute("users");
 
     boolean hasError = false;
 
@@ -132,6 +135,17 @@ public class Login extends HttpServlet {
       for (User user : users) {
         if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
           request.getSession().setAttribute("CurrentUser", user);
+
+//          // Did the attribute exist?
+//          if (name == null) {
+//
+//            // Read the name from the request object
+//            name = request.getParameter("name");
+
+          // Add the name to the session
+          session.setAttribute("CurrentUser", user);
+//          }
+
           response.sendRedirect("Inventory");
         }
       }
