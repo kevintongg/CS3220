@@ -20,7 +20,7 @@ public class Login extends HttpServlet {
 
     List<User> users = new ArrayList<>();
 
-    users.add(new User("test", "asdf"));
+    users.add(new User("kevin@tong.com", "asdf"));
 
     getServletContext().setAttribute("users", users);
   }
@@ -48,23 +48,55 @@ public class Login extends HttpServlet {
         "\n" +
         "<body>\n");
 
+    // Read email/password if they exist
+    String email = request.getParameter("email") == null || request.getAttribute("emailError") != null ? "" : request.getParameter("email");
+    String password = request.getParameter("password") == null || request.getAttribute("passwordError") != null ? "" : request.getParameter("password");
+
     out.println("<body>\n" +
         "<div class=\"container\">\n" +
         "\t<div class=\"page-header\">\n" +
         "\t\t<h1>Login</h1>\n" +
         "\t</div>\n" +
         "\n" +
-        "\t<form class=\"form-inline\" method=\"post\">\n");
-
-    out.println("</body>\n" +
+        "\t<form class=\"form-inline\" method=\"post\">\n" +
+        "\t\t<div class=\"form-group\">\n" +
+        "\t\t\t<input type=\"email\" class=\"form-control\" name=\"email\" placeholder=\"Email\">\n");
+    if (request.getAttribute("emailError") != null) {
+      out.println("<h5 style=\"color: red\"><strong>Incorrect email! Please try again!</strong></h5>");
+    }
+    out.println("<br />");
+    out.println("\t\t</div>\n" +
+        "\t\t<div class=\"form-group\">\n" +
+        "\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Password\">\n");
+    if (request.getAttribute("emailError") != null) {
+      out.println("<h5 style=\"color: red\"><strong>Incorrect password! Please try again!</strong></h5>");
+    }
+    out.println("<br />");
+    out.println("\t\t</div>\n" +
+        "\t\t<div class=\"checkbox\">\n" +
+        "\t\t\t<label>\n" +
+        "\t\t\t\t<input type=\"checkbox\" name=\"rememberMe\"> Remember me\n" +
+        "\t\t\t</label>\n" +
+        "\t\t</div>\n" +
+        "\t\t<br />" +
+        "\t\t<br />" +
+        "\t\t<button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+        "\t</form>\n" +
+        "\n" +
+        "</div>\n" +
+        "</body>\n" +
         "</html>");
+
 
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     HttpSession session = request.getSession();
+
+    List<User> users = (ArrayList<User>) request.getAttribute("users");
 
     boolean hasError = false;
 
@@ -96,9 +128,13 @@ public class Login extends HttpServlet {
 
     if (hasError) {
       doGet(request, response);
-      return;
     } else {
-
+      for (User user : users) {
+        if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+          request.getSession().setAttribute("CurrentUser", user);
+          response.sendRedirect("Inventory");
+        }
+      }
     }
   }
 }
