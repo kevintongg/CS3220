@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -27,6 +28,12 @@ public class Inventory extends HttpServlet {
 
   @SuppressWarnings("unchecked")
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    HttpSession session = request.getSession();
+
+    if (session.getAttribute("CurrentUser") == null) {
+      response.sendRedirect("Login");
+    }
 
     ServletContext context = this.getServletContext();
 
@@ -53,9 +60,10 @@ public class Inventory extends HttpServlet {
       out.println("<body>");
 
       out.println("<div class=\"container\">\n" +
-          "<div class=\"page-header text-center\">\n" +
-          "<h1>Inventory</h1>\n" +
-          "</div>");
+          "\t<div class=\"page-header text-center\">\n" +
+          "\t\t<h1>Inventory</h1>\n" +
+          "\t\t<h3 class=\"text-right\"><a style=\"text-decoration: none\" href=\"Logout\">Logout</a></h3>" +
+          "\t</div>");
 
       out.println("<h3 class=\"text-center\">");
       out.println("There are no items in your inventory!");
@@ -89,6 +97,7 @@ public class Inventory extends HttpServlet {
       out.println("<div class=\"container\">\n" +
           "\t<div class=\"page-header\">\n" +
           "\t\t<h1 class=\"text-center\">Inventory</h1>\n" +
+          "\t\t<h3 class=\"text-center\"><a style=\"text-decoration: none\" href=\"Logout\">Logout</a></h3>"+
           "\t</div>");
 
       out.println("<form class=\"text-center\" action=\"Inventory\" method=\"get\">\n" +

@@ -61,25 +61,25 @@ public class Login extends HttpServlet {
         "\n" +
         "\t<form class=\"form-inline\" method=\"post\">\n" +
         "\t\t<div class=\"form-group\">\n" +
-        "\t\t\t<input type=\"email\" class=\"form-control\" name=\"email\" placeholder=\"Email\">\n");
+        "\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + email + "\">\n");
     if (request.getAttribute("emailError") != null) {
-      out.println("<h5 style=\"color: red\"><strong>Incorrect email! Please try again!</strong></h5>");
+      out.println("<h5 style=\"color: red\">Invalid/Incorrect email! Please try again!</h5>");
     }
-    out.println("<br />");
     out.println("\t\t</div>\n" +
+        "<br />" +
         "\t\t<div class=\"form-group\">\n" +
-        "\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Password\">\n");
+        "\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Password\" value=\"" + password + "\">\n");
     if (request.getAttribute("emailError") != null) {
-      out.println("<h5 style=\"color: red\"><strong>Incorrect password! Please try again!</strong></h5>");
+      out.println("<h5 style=\"color: red\">Invalid/Incorrect password! Please try again!</h5>");
     }
     out.println("<br />");
     out.println("\t\t</div>\n" +
+        "\t\t<br />" +
         "\t\t<div class=\"checkbox\">\n" +
         "\t\t\t<label>\n" +
         "\t\t\t\t<input type=\"checkbox\" name=\"rememberMe\"> Remember me\n" +
         "\t\t\t</label>\n" +
         "\t\t</div>\n" +
-        "\t\t<br />" +
         "\t\t<br />" +
         "\t\t<button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
         "\t</form>\n" +
@@ -117,16 +117,20 @@ public class Login extends HttpServlet {
     }
 
     // Validate the e-mail
-    if (email == null || email.trim().length() == 0) {
-      hasError = true;
-      request.setAttribute("emailError", true);
+    for (User user : users) {
+      if (email == null || user.getEmail().trim().length() == 0 || !user.getEmail().equals(email)) {
+        hasError = true;
+        request.setAttribute("emailError", true);
+      }
     }
 
     String password = request.getParameter("password");
 
-    if (password == null || password.trim().length() == 0) {
-      hasError = true;
-      request.setAttribute("passwordError", true);
+    for (User user : users) {
+      if (password == null || user.getPassword().trim().length() == 0 || !user.getPassword().equals(password) && user.getEmail().equals(email)) {
+        hasError = true;
+        request.setAttribute("passwordError", true);
+      }
     }
 
     if (hasError) {
