@@ -63,24 +63,26 @@ public class Login extends HttpServlet {
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + email + "\">\n");
     if (request.getAttribute("emailError") != null) {
-      out.println("<h5 style=\"color: red\">Invalid/Incorrect email! Please try again!</h5>");
+      out.println("<h5 style=\"color: red\">Invalid/Incorrect email! Please try again!</h5\n>");
     }
     out.println("\t\t</div>\n" +
         "<br />" +
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Password\" value=\"" + password + "\">\n");
+    out.println("\t\t<br />");
     if (request.getAttribute("emailError") != null) {
-      out.println("<h5 style=\"color: red\">Invalid/Incorrect password! Please try again!</h5>");
+      out.println("\t\t\t<h5 style=\"color: red\">Invalid/Incorrect password! Please try again!</h5>\n<br />");
     }
-    out.println("<br />");
+    out.println("\t\t<br />\n");
     out.println("\t\t</div>\n" +
-        "\t\t<br />" +
+        "\t\t<br />\n" +
         "\t\t<div class=\"checkbox\">\n" +
         "\t\t\t<label>\n" +
         "\t\t\t\t<input type=\"checkbox\" name=\"rememberMe\"> Remember me\n" +
         "\t\t\t</label>\n" +
         "\t\t</div>\n" +
-        "\t\t<br />" +
+        "\t\t<br />\n" +
+        "\t\t<br />\n" +
         "\t\t<button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
         "\t</form>\n" +
         "\n" +
