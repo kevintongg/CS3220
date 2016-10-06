@@ -21,6 +21,9 @@ public class Login extends HttpServlet {
 
     List<User> users = new ArrayList<>();
 
+    users.add(new User("john@doe.com", "aa"));
+    users.add(new User("mary@jane.com", "bb"));
+    users.add(new User("joe@boxer.com", "cc"));
     users.add(new User("kevin@tong.com", "asdf"));
 
     getServletContext().setAttribute("users", users);
@@ -58,21 +61,20 @@ public class Login extends HttpServlet {
         "\t<div class=\"page-header\">\n" +
         "\t\t<h1>Login</h1>\n" +
         "\t</div>\n" +
-        "\n" +
-        "\t<form class=\"form-inline\" method=\"post\">\n" +
-        "\t\t<div class=\"form-group\">\n" +
-        "\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + email + "\">\n");
-    if (request.getAttribute("emailError") != null) {
-      out.println("<h5 style=\"color: red\">Invalid/Incorrect email! Please try again!</h5\n>");
+        "\n");
+
+    if (request.getAttribute("emailError") != null || request.getAttribute("passwordError") != null) {
+      out.println("\t<h5 style=\"color: red\">Invalid/Incorrect password! Please try again!</h5>\n");
     }
-    out.println("\t\t</div>\n" +
+
+    out.println("\t<form class=\"form-inline\" method=\"post\">\n" +
+        "\t\t<div class=\"form-group\">\n" +
+        "\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + email + "\">\n" +
+        "\t\t</div>\n" +
         "<br />" +
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Password\" value=\"" + password + "\">\n");
     out.println("\t\t<br />");
-    if (request.getAttribute("emailError") != null) {
-      out.println("\t\t\t<h5 style=\"color: red\">Invalid/Incorrect password! Please try again!</h5>\n<br />");
-    }
     out.println("\t\t<br />\n");
     out.println("\t\t</div>\n" +
         "\t\t<br />\n" +
@@ -90,7 +92,6 @@ public class Login extends HttpServlet {
         "</body>\n" +
         "</html>");
 
-
   }
 
   @Override
@@ -106,6 +107,7 @@ public class Login extends HttpServlet {
     boolean hasError = false;
 
     String email = request.getParameter("email");
+    String password = request.getParameter("password");
     String checkBox = request.getParameter("rememberMe");
 
     // Did the cookie exist?
@@ -118,7 +120,6 @@ public class Login extends HttpServlet {
       response.addCookie(cookie);
     }
 
-    // Validate the e-mail
     for (User user : users) {
       if (email == null || user.getEmail().trim().length() == 0 || !user.getEmail().equals(email)) {
         hasError = true;
@@ -126,10 +127,8 @@ public class Login extends HttpServlet {
       }
     }
 
-    String password = request.getParameter("password");
-
     for (User user : users) {
-      if (password == null || user.getPassword().trim().length() == 0 || !user.getPassword().equals(password) && user.getEmail().equals(email)) {
+      if (password == null || user.getPassword().trim().length() == 0 || !user.getPassword().equals(password)) {
         hasError = true;
         request.setAttribute("passwordError", true);
       }
@@ -142,15 +141,7 @@ public class Login extends HttpServlet {
         if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
           request.getSession().setAttribute("CurrentUser", user);
 
-//          // Did the attribute exist?
-//          if (name == null) {
-//
-//            // Read the name from the request object
-//            name = request.getParameter("name");
-
-          // Add the name to the session
           session.setAttribute("CurrentUser", user);
-//          }
 
           response.sendRedirect("Inventory");
         }
@@ -158,3 +149,4 @@ public class Login extends HttpServlet {
     }
   }
 }
+

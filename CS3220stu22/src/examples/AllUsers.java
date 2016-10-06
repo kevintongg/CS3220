@@ -19,7 +19,7 @@ public class AllUsers extends HttpServlet {
     super.init(config);
 
     // Create the collection in the servlet context to be used by all other servlets
-    List<User> users = new ArrayList<User>();
+    List<User> users = new ArrayList<>();
 
     // Pre-Populate your users database with the following accounts
     users.add(new User("John", "Doe", "john@doe.com", "aa"));
