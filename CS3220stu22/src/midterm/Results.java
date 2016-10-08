@@ -19,8 +19,9 @@ public class Results extends HttpServlet {
 
     PrintWriter out = response.getWriter();
 
+    Problem problem = new Problem();
+
     String name = (String) getServletContext().getAttribute("name");
-    int score = (int) getServletContext().getAttribute("score");
 
     out.println("<!DOCTYPE html>\n" +
         "<html>\n" +
@@ -53,7 +54,7 @@ public class Results extends HttpServlet {
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<label class=\"col-sm-2 control-label\">Score</label>\n" +
         "\t\t\t<div class=\"col-sm-10\">\n" +
-        "\t\t\t\t<p class=\"form-control-static\">" + score + "</p>\n" +
+        "\t\t\t\t<p class=\"form-control-static\">" + problem.getScore() + "</p>\n" +
         "\t\t\t</div>\n" +
         "\t\t</div>\n" +
         "\t\t<div class=\"form-group\">\n" +

@@ -4,6 +4,10 @@ package midterm;
 public class Problem {
 
   int num1, num2;
+  int score = 0;
+
+  public Problem() {
+  }
 
   public Problem(int num1, int num2) {
     this.num1 = num1;
@@ -24,5 +28,13 @@ public class Problem {
 
   public void setNum2(int num2) {
     this.num2 = num2;
+  }
+
+  public int getScore() {
+    return score;
+  }
+
+  public void setScore(int score) {
+    this.score = score;
   }
 }
