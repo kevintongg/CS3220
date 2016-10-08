@@ -14,6 +14,22 @@ import java.util.List;
 public class Login extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
+  private String getEmail(HttpServletRequest request) {
+
+    Cookie[] cookies = request.getCookies();
+
+    // Are there any cookies?
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if (cookie.getName().equals("username")) {
+          return cookie.getValue();
+        }
+      }
+    }
+
+    return "";
+  }
+
   @Override
   public void init(ServletConfig config) throws ServletException {
 
@@ -56,6 +72,8 @@ public class Login extends HttpServlet {
     String email = request.getParameter("email") == null || request.getAttribute("emailError") != null ? "" : request.getParameter("email");
     String password = request.getParameter("password") == null || request.getAttribute("passwordError") != null ? "" : request.getParameter("password");
 
+    String emailCookie = getEmail(request);
+
     out.println("<body>\n" +
         "<div class=\"container\">\n" +
         "\t<div class=\"page-header\">\n" +
@@ -69,7 +87,7 @@ public class Login extends HttpServlet {
 
     out.println("\t<form class=\"form-inline\" method=\"post\">\n" +
         "\t\t<div class=\"form-group\">\n" +
-        "\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + email + "\">\n" +
+        "\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + email + emailCookie + "\">\n" +
         "\t\t</div>\n" +
         "<br />" +
         "\t\t<div class=\"form-group\">\n" +
@@ -104,7 +122,8 @@ public class Login extends HttpServlet {
 
     List<User> users = (ArrayList<User>) context.getAttribute("users");
 
-    boolean hasError = false;
+    boolean emailError = false;
+    boolean passwordError = false;
 
     String email = request.getParameter("email");
     String password = request.getParameter("password");
@@ -121,20 +140,32 @@ public class Login extends HttpServlet {
     }
 
     for (User user : users) {
-      if (email == null || user.getEmail().trim().length() == 0 || !user.getEmail().equals(email)) {
-        hasError = true;
+      if (email == null || user.getEmail().trim().length() == 0) {
+        emailError = true;
         request.setAttribute("emailError", true);
+      } else if (!user.getEmail().equals(email)) {
+        emailError = true;
+        request.setAttribute("emailError", true);
+      } else if (user.getEmail().equals(email)) {
+        emailError = false;
+        request.setAttribute("emailError", false);
       }
     }
 
     for (User user : users) {
-      if (password == null || user.getPassword().trim().length() == 0 || !user.getPassword().equals(password)) {
-        hasError = true;
+      if (password == null || user.getPassword().trim().length() == 0) {
+        passwordError = true;
         request.setAttribute("passwordError", true);
+      } else if (!user.getPassword().equals(password)) {
+        passwordError = true;
+        request.setAttribute("passwordError", true);
+      } else if (user.getPassword().equals(password)) {
+        passwordError = false;
+        request.setAttribute("passwordError", false);
       }
     }
 
-    if (hasError) {
+    if (emailError || passwordError) {
       doGet(request, response);
     } else {
       for (User user : users) {

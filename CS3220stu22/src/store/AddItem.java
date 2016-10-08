@@ -130,7 +130,6 @@ public class AddItem extends HttpServlet {
 
     if (hasError) {
       doGet(request, response);
-      return;
     } else {
       try {
         quantityAsNum = Integer.parseInt(quantity);

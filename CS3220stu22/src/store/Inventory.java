@@ -97,7 +97,7 @@ public class Inventory extends HttpServlet {
       out.println("<div class=\"container\">\n" +
           "\t<div class=\"page-header\">\n" +
           "\t\t<h1 class=\"text-center\">Inventory</h1>\n" +
-          "\t\t<h3 class=\"text-center\"><a style=\"text-decoration: none\" href=\"Logout\">Logout</a></h3>"+
+          "\t\t<h3 class=\"text-right\"><a style=\"text-decoration: none\" href=\"Logout\">Logout</a></h3>" +
           "\t</div>");
 
       out.println("<form class=\"text-center\" action=\"Inventory\" method=\"get\">\n" +
