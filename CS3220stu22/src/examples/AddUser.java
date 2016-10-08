@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/Store/AddUser")
+@WebServlet(urlPatterns = "/Store/AddUser1")
 public class AddUser extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

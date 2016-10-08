@@ -1,6 +1,5 @@
 package store;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,21 +27,6 @@ public class Login extends HttpServlet {
     }
 
     return "";
-  }
-
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-
-    super.init(config);
-
-    List<User> users = new ArrayList<>();
-
-    users.add(new User("john@doe.com", "aa"));
-    users.add(new User("mary@jane.com", "bb"));
-    users.add(new User("joe@boxer.com", "cc"));
-    users.add(new User("kevin@tong.com", "asdf"));
-
-    getServletContext().setAttribute("users", users);
   }
 
   @Override
@@ -82,24 +66,24 @@ public class Login extends HttpServlet {
         "\n");
 
     if (request.getAttribute("emailError") != null || request.getAttribute("passwordError") != null) {
-      out.println("\t<h5 style=\"color: red\">Invalid/Incorrect password! Please try again!</h5>\n");
+      out.println("\t<p style=\"color: red\"><strong>Invalid/Incorrect password! Please try again!</strong></p>\n");
     }
 
-    out.println("\t<form class=\"form-inline\" method=\"post\">\n" +
+    out.println("\t<form class=\"form-horizontal\" method=\"post\">\n" +
         "\t\t<div class=\"form-group\">\n" +
-        "\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + email + emailCookie + "\">\n" +
+        "\t\t\t<label class=\"col-sm-2 control-label\">Email:</label>\n" +
+        "\t\t\t<div class=\"col-sm-10\">" +
+        "\t\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + email + emailCookie + "\" autofocus>\n" +
+        "\t\t\t</div>" +
         "\t\t</div>\n" +
-        "<br />" +
         "\t\t<div class=\"form-group\">\n" +
+        "\t\t\t<label class=\"col-sm-2 control-label\">Password:</label>\n" +
         "\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Password\" value=\"" + password + "\">\n");
-    out.println("\t\t<br />");
-    out.println("\t\t<br />\n");
     out.println("\t\t</div>\n" +
         "\t\t<br />\n" +
+        "\t\t<br />\n" +
         "\t\t<div class=\"checkbox\">\n" +
-        "\t\t\t<label>\n" +
-        "\t\t\t\t<input type=\"checkbox\" name=\"rememberMe\"> Remember me\n" +
-        "\t\t\t</label>\n" +
+        "\t\t\t<label><input type=\"checkbox\" name=\"rememberMe\"> Remember me</label>\n" +
         "\t\t</div>\n" +
         "\t\t<br />\n" +
         "\t\t<br />\n" +
@@ -122,8 +106,7 @@ public class Login extends HttpServlet {
 
     List<User> users = (ArrayList<User>) context.getAttribute("users");
 
-    boolean emailError = false;
-    boolean passwordError = false;
+    boolean hasError = false;
 
     String email = request.getParameter("email");
     String password = request.getParameter("password");
@@ -141,31 +124,31 @@ public class Login extends HttpServlet {
 
     for (User user : users) {
       if (email == null || user.getEmail().trim().length() == 0) {
-        emailError = true;
+        hasError = true;
         request.setAttribute("emailError", true);
       } else if (!user.getEmail().equals(email)) {
-        emailError = true;
+        hasError = true;
         request.setAttribute("emailError", true);
       } else if (user.getEmail().equals(email)) {
-        emailError = false;
+        hasError = false;
         request.setAttribute("emailError", false);
       }
     }
 
     for (User user : users) {
       if (password == null || user.getPassword().trim().length() == 0) {
-        passwordError = true;
+        hasError = true;
         request.setAttribute("passwordError", true);
       } else if (!user.getPassword().equals(password)) {
-        passwordError = true;
+        hasError = true;
         request.setAttribute("passwordError", true);
       } else if (user.getPassword().equals(password)) {
-        passwordError = false;
+        hasError = false;
         request.setAttribute("passwordError", false);
       }
     }
 
-    if (emailError || passwordError) {
+    if (hasError) {
       doGet(request, response);
     } else {
       for (User user : users) {

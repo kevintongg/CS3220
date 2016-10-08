@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/Store/AllUsers")
+@WebServlet(urlPatterns = "/Store/AllUsers1")
 public class AllUsers extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
