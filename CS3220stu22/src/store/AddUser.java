@@ -43,11 +43,11 @@ public class AddUser extends HttpServlet {
         "\t\t<h1>Add User</h1>\n" +
         "\t</div>");
 
-    out.println("\t<form class=\"form-horizontal\">\n" +
+    out.println("\t<form class=\"form-horizontal\" method=\"post\">\n" +
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<label class=\"col-sm-2 control-label\">Full Name:</label>\n" +
         "\t\t\t<div class=\"col-sm-10\">\n" +
-        "\t\t\t\t<input class=\"form-control\" type=\"text\" name=\"fullName\" placeholder=\"Full Name\" autofocus>\n");
+        "\t\t\t\t<input class=\"form-control\" type=\"text\" name=\"fullName\" placeholder=\"Full Name\" value=\"" + fullName + "\" autofocus>\n");
     if (request.getAttribute("nameError") != null) {
       out.println("\t\t\t<label style=\"color: red\">Please enter your full name!</label>\n");
     }
@@ -56,7 +56,7 @@ public class AddUser extends HttpServlet {
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<label class=\"col-sm-2 control-label\">Email Address:</label>\n" +
         "\t\t\t<div class=\"col-sm-10\">\n" +
-        "\t\t\t\t<input class=\"form-control\" type=\"text\" name=\"email\" placeholder=\"Email\">\n");
+        "\t\t\t\t<input class=\"form-control\" type=\"text\" name=\"email\" placeholder=\"Email\" value=\"" + email + "\">\n");
     if (request.getAttribute("emailError") != null) {
       out.println("\t\t\t<label style=\"color: red\">Please enter a valid email address!</label>");
     }
@@ -65,13 +65,13 @@ public class AddUser extends HttpServlet {
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<label class=\"col-sm-2 control-label\">Password:</label>\n" +
         "\t\t\t<div class=\"col-sm-10\">\n" +
-        "\t\t\t\t<input class=\"form-control\" type=\"password\" name=\"password1\" placeholder=\"Password\">\n" +
+        "\t\t\t\t<input class=\"form-control\" type=\"password\" name=\"pw1\" placeholder=\"Password\">\n" +
         "\t\t\t</div>\n" +
         "\t\t</div>\n" +
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<label class=\"col-sm-2 control-label\">Input Password Again:</label>\n" +
         "\t\t\t<div class=\"col-sm-10\">\n" +
-        "\t\t\t\t<input class=\"form-control\" type=\"password\" name=\"password2\" placeholder=\"Re-enter your password\">\n" +
+        "\t\t\t\t<input class=\"form-control\" type=\"password\" name=\"pw2\" placeholder=\"Re-enter your password\">\n" +
         "\t\t\t</div>\n" +
         "\t\t</div>\n" +
         "\t\t<button class=\"btn btn-primary\" type=\"submit\">Add User</button>\n" +
@@ -85,15 +85,18 @@ public class AddUser extends HttpServlet {
   @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    boolean hasError = false;
+    boolean hasError = false; // Assume that we start with no errors
 
+    // Validate the name
     String fullName = request.getParameter("fullName");
     String firstName = null;
     String lastName = null;
 
     if (fullName != null) {
+      // Tokenize the fullName
       String[] tokens = fullName.trim().split(" ");
 
+      // Did the User submit at least two names?
       if (tokens.length < 2) {
         hasError = true;
         request.setAttribute("nameError", true);
@@ -106,6 +109,7 @@ public class AddUser extends HttpServlet {
       request.setAttribute("nameError", true);
     }
 
+    // Validate the e-mail
     String email = request.getParameter("email");
 
     if (email == null || email.trim().length() == 0) {
@@ -113,17 +117,20 @@ public class AddUser extends HttpServlet {
       request.setAttribute("emailError", true);
     }
 
-    String pw1 = request.getParameter("password1");
-    String pw2 = request.getParameter("password2");
+    // Validate password
+    String pw1 = request.getParameter("pw1");
+    String pw2 = request.getParameter("pw2");
 
     if (pw1 == null || pw2 == null || pw1.trim().length() == 0 || !pw1.equals(pw2)) {
       hasError = true;
       request.setAttribute("passwordError", true);
     }
 
+    // Redisplay the form if we have errors
     if (hasError) {
       doGet(request, response);
     } else {
+      // Cool, let's add a new user
       List<User> users = (ArrayList<User>) getServletContext().getAttribute("users");
       users.add(new User(firstName, lastName, email, pw1));
       response.sendRedirect("AllUsers");

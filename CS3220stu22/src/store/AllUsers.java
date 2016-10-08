@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/Store/AllUsers")
+@WebServlet(urlPatterns = "/Store/AllUsers", loadOnStartup = 1)
 public class AllUsers extends HttpServlet {
 
   public void init(ServletConfig config) throws ServletException {
@@ -70,6 +70,7 @@ public class AllUsers extends HttpServlet {
         "\t\t\t<th class=\"text-center\">Name</th>\n" +
         "\t\t\t<th class=\"text-center\">Email Address</th>\n" +
         "\t\t\t<th class=\"text-center\">Password</th>\n" +
+        "\t\t\t<th class=\"text-center\">Actions</th>\n" +
         "\t\t</tr>\n");
 
     List<User> users = (ArrayList<User>) getServletContext().getAttribute("users");
@@ -84,6 +85,7 @@ public class AllUsers extends HttpServlet {
         out.println("\t\t\t<td>" + user.getFirstName() + " " + user.getLastName() + "</td>");
         out.println("\t\t\t<td>" + user.getEmail() + "</td>");
         out.println("\t\t\t<td>" + user.getPassword() + "</td>");
+        out.println("\t\t\t<td><a href=\"DeleteUser?id=" + user.getId() + "\">Delete</a>");
         out.println("\t\t</tr>");
       }
     }

@@ -66,7 +66,7 @@ public class Login extends HttpServlet {
         "\n");
 
     if (request.getAttribute("emailError") != null || request.getAttribute("passwordError") != null) {
-      out.println("\t<p style=\"color: red\"><strong>Invalid/Incorrect password! Please try again!</strong></p>\n");
+      out.println("\t<p class=\"text-center\"style=\"color: red\"><strong>Invalid/Incorrect password! Please try again!</strong></p>\n");
     }
 
     out.println("\t<form class=\"form-horizontal\" method=\"post\">\n" +
@@ -78,16 +78,15 @@ public class Login extends HttpServlet {
         "\t\t</div>\n" +
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<label class=\"col-sm-2 control-label\">Password:</label>\n" +
-        "\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Password\" value=\"" + password + "\">\n");
-    out.println("\t\t</div>\n" +
-        "\t\t<br />\n" +
-        "\t\t<br />\n" +
+        "\t\t\t<div class=\"col-sm-10\">" +
+        "\t\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" placeholder=\"Password\" value=\"" + password + "\">\n");
+    out.println("\t\t\t</div>" +
+        "\t\t</div>\n" +
         "\t\t<div class=\"checkbox\">\n" +
         "\t\t\t<label><input type=\"checkbox\" name=\"rememberMe\"> Remember me</label>\n" +
         "\t\t</div>\n" +
         "\t\t<br />\n" +
-        "\t\t<br />\n" +
-        "\t\t<button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n" +
+        "\t\t<button type=\"submit\" class=\"btn btn-primary\">Sign in</button>\n" +
         "\t</form>\n" +
         "\n" +
         "</div>\n" +
@@ -104,22 +103,16 @@ public class Login extends HttpServlet {
 
     HttpSession session = request.getSession();
 
-    List<User> users = (ArrayList<User>) context.getAttribute("users");
-
     boolean hasError = false;
 
     String email = request.getParameter("email");
     String password = request.getParameter("password");
     String checkBox = request.getParameter("rememberMe");
 
-    // Did the cookie exist?
-    if (checkBox != null) {
-      // Read the name from the request object
-      email = request.getParameter("email");
-      // Create the email cookie
-      Cookie cookie = new Cookie("username", email);
-      // Send the cookie back to the browser
-      response.addCookie(cookie);
+    List<User> users = (ArrayList<User>) context.getAttribute("users");
+
+    for (User user : users) {
+      System.out.println(user.toString());
     }
 
     for (User user : users) {
@@ -132,6 +125,7 @@ public class Login extends HttpServlet {
       } else if (user.getEmail().equals(email)) {
         hasError = false;
         request.setAttribute("emailError", false);
+        break;
       }
     }
 
@@ -145,7 +139,19 @@ public class Login extends HttpServlet {
       } else if (user.getPassword().equals(password)) {
         hasError = false;
         request.setAttribute("passwordError", false);
+        break;
       }
+    }
+
+    // Did the cookie exist?
+    if (checkBox != null) {
+      // Read the name from the request object
+      email = request.getParameter("email");
+      // Create the email cookie
+      Cookie cookie = new Cookie("username", email);
+      cookie.setMaxAge(60 * 30); // 30 Minutes
+      // Send the cookie back to the browser
+      response.addCookie(cookie);
     }
 
     if (hasError) {
@@ -154,9 +160,7 @@ public class Login extends HttpServlet {
       for (User user : users) {
         if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
           request.getSession().setAttribute("CurrentUser", user);
-
           session.setAttribute("CurrentUser", user);
-
           response.sendRedirect("Inventory");
         }
       }
