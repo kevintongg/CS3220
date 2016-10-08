@@ -25,6 +25,7 @@ public class AddItem extends HttpServlet {
     response.setContentType("text/html");
 
     PrintWriter out = response.getWriter();
+    out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
     out.println("	<!-- Latest compiled and minified CSS -->");

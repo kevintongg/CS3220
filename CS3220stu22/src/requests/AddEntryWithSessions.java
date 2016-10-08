@@ -14,6 +14,7 @@ import java.util.List;
 
 
 @WebServlet("/requests/AddEntryWithSessions")
+@SuppressWarnings("unchecked")
 public class AddEntryWithSessions extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

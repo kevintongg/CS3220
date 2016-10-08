@@ -64,9 +64,9 @@ public class Inventory extends HttpServlet {
 
       out.println("<br/>");
 
-      out.println("<h3 class=\"text-center\"><a style=\"text-decoration: none\" href=\"AddItem\">Add Item</a></h3>");
-
-      out.println("</body>");
+      out.println("<h3 class=\"text-center\"><a style=\"text-decoration: none\" href=\"AddItem\">Add Item</a></h3>" +
+          "</div>" +
+          "</body>");
     } else {
       response.setContentType("text/html");
 

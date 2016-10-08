@@ -58,8 +58,7 @@ public class Login extends HttpServlet {
 
     String emailCookie = getEmail(request);
 
-    out.println("<body>\n" +
-        "<div class=\"container\">\n" +
+    out.println("<div class=\"container\">\n" +
         "\t<div class=\"page-header\">\n" +
         "\t\t<h1>Login</h1>\n" +
         "\t</div>\n" +

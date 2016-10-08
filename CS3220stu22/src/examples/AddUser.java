@@ -52,6 +52,8 @@ public class AddUser extends HttpServlet {
     out.println("</body></html");
   }
 
+  @Override
+  @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     boolean hasError = false; // Assume that we start with no errors
