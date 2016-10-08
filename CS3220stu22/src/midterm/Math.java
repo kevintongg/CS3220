@@ -25,12 +25,12 @@ public class Math extends HttpServlet {
     problems.add(new Problem(1, 1));
     problems.add(new Problem(2, 2));
     problems.add(new Problem(3, 3));
-    problems.add(new Problem(64, 8));
-    problems.add(new Problem(81, 9));
-    problems.add(new Problem(49, 7));
-    problems.add(new Problem(36, 6));
-    problems.add(new Problem(25, 5));
-    problems.add(new Problem(16, 4));
+    problems.add(new Problem(12, 2));
+    problems.add(new Problem(8, 4));
+    problems.add(new Problem(10, 2));
+    problems.add(new Problem(6, 2));
+    problems.add(new Problem(20, 2));
+    problems.add(new Problem(20, 10));
 
     getServletContext().setAttribute("problems", problems);
 
@@ -44,8 +44,12 @@ public class Math extends HttpServlet {
 
     PrintWriter out = response.getWriter();
 
-    Problem problem = new Problem();
     List<Problem> problems = (ArrayList<Problem>) getServletContext().getAttribute("problems");
+
+    String addition = request.getParameter("additionAnswer") == null ? "" : request.getParameter("additionAnswer");
+    String subtraction = request.getParameter("subtractionAnswer") == null ? "" : request.getParameter("subtractionAnswer");
+    String multiplication = request.getParameter("multiplicationAnswer") == null ? "" : request.getParameter("multiplicationAnswer");
+    String division = request.getParameter("divisionAnswer") == null ? "" : request.getParameter("divisionAnswer");
 
     out.println("<!DOCTYPE html>\n" +
         "<html>\n" +
@@ -63,9 +67,9 @@ public class Math extends HttpServlet {
         "\n" +
         "<body>\n" +
         "<div class=\"container\">\n" +
-        "\t<div class=\"page-header\">\n" +
+        "\t<div class=\"page-header text-center\">\n" +
         "\t\t<h1>Math</h1>\n" +
-        "\t\t<label class=\"text-right\">" + getServletContext().getAttribute("name") + "</label>" +
+        "\t\t<h3 class=\"text-right\">" + getServletContext().getAttribute("name") + "</a></h3>" +
         "\t</div>");
 
     out.println("\t<form class=\"form-horizontal\" method=\"post\">\n");
@@ -76,6 +80,8 @@ public class Math extends HttpServlet {
     int additionNum2 = 0;
     int additionCounter = 0;
 
+    boolean addNums = false;
+
     for (Problem p : problems) {
       Collections.shuffle(problems);
       additionNum1 = p.getNum1();
@@ -83,6 +89,7 @@ public class Math extends HttpServlet {
       Collections.shuffle(problems);
       additionCounter++;
       if (additionCounter == 2) {
+        addNums = true;
         break;
       }
     }
@@ -92,8 +99,11 @@ public class Math extends HttpServlet {
 
     out.println("\t\t\t<label class=\"col-sm-2 control-label\">Addition: " + additionNum1 + " + " + additionNum2 + "</label>\n" +
         "\t\t\t<div class=\"col-sm-10\">\n" +
-        "\t\t\t\t<input class=\"form-control\" type=\"text\" name=\"additionAnswer\" placeholder=\"Enter your answer\" autofocus>\n" +
-        "\t\t\t</div>\n" +
+        "\t\t\t\t<input class=\"form-control\" type=\"text\" name=\"additionAnswer\" placeholder=\"Enter your answer\" value=\"" + addition + "\" autofocus>\n");
+    if (request.getAttribute("additionError") != null) {
+      out.println("\t\t\t\t<p class=\"text-center\"style=\"color: red\"><strong>Invalid/Incorrect answer! Please try again!</strong></p>");
+    }
+    out.println("\t\t\t</div>\n" +
         "\t\t</div>");
 
     int subtractionNum1 = 0;
@@ -117,8 +127,11 @@ public class Math extends HttpServlet {
     out.println("\t<div class=\"form-group\">\n" +
         "\t<label class=\"col-sm-2 control-label\">Subtraction: " + subtractionNum1 + " - " + subtractionNum2 + "</label>\n" +
         "\t<div class=\"col-sm-10\">\n" +
-        "\t\t<input class=\"form-control\" type=\"text\" name=\"subtractionAnswer\" placeholder=\"Enter your answer\">\n" +
-        "\t</div>\n" +
+        "\t\t<input class=\"form-control\" type=\"text\" name=\"subtractionAnswer\" placeholder=\"Enter your answer\" value=\"" + subtraction + "\">\n");
+    if (request.getAttribute("additionError") != null) {
+      out.println("\t\t\t\t<p class=\"text-center\"style=\"color: red\"><strong>Invalid/Incorrect answer! Please try again!</strong></p>");
+    }
+    out.println("\t</div>\n" +
         "\t</div>\n");
 
     int multiplicationNum1 = 0;
@@ -142,7 +155,7 @@ public class Math extends HttpServlet {
     out.println("\t<div class=\"form-group\">\n" +
         "\t<label class=\"col-sm-2 control-label\">Multiplication: " + multiplicationNum1 + " x " + multiplicationNum2 + "</label>\n" +
         "\t<div class=\"col-sm-10\">\n" +
-        "\t\t<input class=\"form-control\" type=\"text\" name=\"multiplicationAnswer\" placeholder=\"Enter your answer\">\n" +
+        "\t\t<input class=\"form-control\" type=\"text\" name=\"multiplicationAnswer\" placeholder=\"Enter your answer\" value=\"" + multiplication + "\">\n" +
         "\t</div>\n" +
         "\t</div>\n");
 
@@ -165,11 +178,20 @@ public class Math extends HttpServlet {
     getServletContext().setAttribute("divisionNum2", divisionNum2);
 
     out.println("\t<div class=\"form-group\">\n" +
-        "\t<label class=\"col-sm-2 control-label\">Division: " + divisionNum1 + " / " + divisionNum2 + "</label>\n" +
-        "\t<div class=\"col-sm-10\">\n" +
-        "\t\t<input class=\"form-control\" type=\"text\" name=\"divisionAnswer\" placeholder=\"Enter your answer\">\n" +
+        "\t\t<label class=\"col-sm-2 control-label\">Division: " + divisionNum1 + " / " + divisionNum2 + "</label>\n" +
+        "\t\t<div class=\"col-sm-10\">\n" +
+        "\t\t\t<input class=\"form-control\" type=\"text\" name=\"divisionAnswer\" placeholder=\"Enter your answer\" value=\"" + division + "\">\n" +
+        "\t\t</div>\n" +
         "\t</div>\n" +
-        "</div>");
+        "\t<div class=\"form-group\">\n" +
+        "\t\t\t<div class=\"col-sm-offset-2 col-sm-10\">\n" +
+        "\t\t\t\t<button type=\"submit\" class=\"btn btn-default\"></button>\n" +
+        "\t\t\t</div>\n" +
+        "\t\t</div>\n" +
+        "\t</form>\n" +
+        "\t</div>\n" +
+        "</body>\n" +
+        "</html>");
   }
 
   @Override
@@ -177,72 +199,66 @@ public class Math extends HttpServlet {
 
     boolean hasError = true;
 
-    String additionNum1 = (String) getServletContext().getAttribute("additionNum1");
-    String additionNum2 = (String) getServletContext().getAttribute("additionNum2");
-    String subtractionNum1 = (String) getServletContext().getAttribute("subtractionNum1");
-    String subtractionNum2 = (String) getServletContext().getAttribute("subtractionNum2");
-    String multiplicationNum1 = (String) getServletContext().getAttribute("multiplicationNum1");
-    String multiplicationNum2 = (String) getServletContext().getAttribute("multiplicationNum2");
-    String divisionNum1 = (String) getServletContext().getAttribute("divisionNum1");
-    String divisionNum2 = (String) getServletContext().getAttribute("divisionNum2");
+    int additionNum1 = (int) getServletContext().getAttribute("additionNum1");
+    int additionNum2 = (int) getServletContext().getAttribute("additionNum2");
+    int subtractionNum1 = (int) getServletContext().getAttribute("subtractionNum1");
+    int subtractionNum2 = (int) getServletContext().getAttribute("subtractionNum2");
+    int multiplicationNum1 = (int) getServletContext().getAttribute("multiplicationNum1");
+    int multiplicationNum2 = (int) getServletContext().getAttribute("multiplicationNum2");
+    int divisionNum1 = (int) getServletContext().getAttribute("divisionNum1");
+    int divisionNum2 = (int) getServletContext().getAttribute("divisionNum2");
     String additionResult = request.getParameter("additionAnswer");
     String subtractionResult = request.getParameter("subtractionAnswer");
     String multiplicationResult = request.getParameter("multiplicationAnswer");
     String divisionResult = request.getParameter("divisionAnswer");
+
+    int addNum = additionNum1 + additionNum2;
+    int subNum = subtractionNum1 - subtractionNum2;
+    int multNum = multiplicationNum1 * multiplicationNum2;
+    int divNum = (divisionNum1 / divisionNum2);
 
     int additionAnswer = 0;
     int subtractionAnswer = 0;
     int multiplicationAnswer = 0;
     int divisionAnswer = 0;
 
-    int addNum1 = 0;
-    int addNum2 = 0;
-    int subNum1 = 0;
-    int subNum2 = 0;
-    int multNum1 = 0;
-    int multNum2 = 0;
-    int divNum1 = 0;
-    int divNum2 = 0;
-
     try {
       additionAnswer = Integer.parseInt(additionResult);
       subtractionAnswer = Integer.parseInt(subtractionResult);
       multiplicationAnswer = Integer.parseInt(multiplicationResult);
       divisionAnswer = Integer.parseInt(divisionResult);
-      addNum1 = Integer.parseInt(additionNum1);
-      addNum2 = Integer.parseInt(additionNum2);
-      subNum1 = Integer.parseInt(subtractionNum1);
-      subNum2 = Integer.parseInt(subtractionNum2);
-      multNum1 = Integer.parseInt(multiplicationNum1);
-      multNum2 = Integer.parseInt(multiplicationNum2);
-      divNum1 = Integer.parseInt(divisionNum1);
-      divNum2 = Integer.parseInt(divisionNum2);
     } catch (NumberFormatException e) {
       e.printStackTrace();
     }
 
     // Validate addition
-    if (additionAnswer != (addNum1 + addNum2)) {
+    if (additionAnswer != addNum) {
       hasError = true;
       request.setAttribute("additionError", true);
     }
 
     // Validate subtraction
-    if (subtractionAnswer != (subNum1 - subNum2)) {
+    if (subtractionAnswer != subNum) {
       hasError = true;
       request.setAttribute("subtractionError", true);
     }
 
     // Validate multiplication
-    if (multiplicationAnswer != (multNum1 * multNum2)) {
+    if (multiplicationAnswer != multNum) {
       hasError = true;
       request.setAttribute("multiplicationError", true);
     }
 
     // Validate division
-    if (divisionAnswer != (divNum1 / divNum2)) {
+    if (divisionAnswer != divNum) {
       hasError = true;
       request.setAttribute("divisionError", true);
+    }
+
+    if (hasError) {
+      doGet(request, response);
+    } else {
+      response.sendRedirect("Education");
     }
 
   }
