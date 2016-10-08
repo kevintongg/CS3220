@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = "/Midterm/Education")
 public class Education extends HttpServlet {
+  private static final long serialVersionUID = 1L;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +38,7 @@ public class Education extends HttpServlet {
 
     out.println("<body>\n" +
         "<div class=\"container\">\n" +
-        "\t<div class=\"page-header\">\n" +
+        "\t<div class=\"page-header text-center\">\n" +
         "\t\t<h1>Enter Name</h1>\n" +
         "\t</div>\n" +
         "\n" +

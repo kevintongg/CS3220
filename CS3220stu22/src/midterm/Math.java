@@ -16,6 +16,7 @@ import java.util.List;
 @WebServlet(urlPatterns = "/Midterm/Math")
 @SuppressWarnings("")
 public class Math extends HttpServlet {
+  private static final long serialVersionUID = 1L;
 
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
@@ -263,7 +264,7 @@ public class Math extends HttpServlet {
       doGet(request, response);
     } else {
       getServletContext().setAttribute("score", score);
-      response.sendRedirect("Education");
+      response.sendRedirect("Results");
     }
   }
 }
