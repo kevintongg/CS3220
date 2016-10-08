@@ -58,7 +58,7 @@ public class Results extends HttpServlet {
         "\t\t</div>\n" +
         "\t\t<div class=\"form-group\">\n" +
         "\t\t\t<div class=\"col-sm-offset-2 col-sm-10\">\n" +
-        "\t\t\t\t<a href=\"Math\" class=\"btn btn-default\">Take Exam Again</a>\n" +
+        "\t\t\t\t<a href=\"Math\" class=\"btn btn-info\">Take Exam Again?</a>\n" +
         "\t\t\t</div>\n" +
         "\t\t</div>\n" +
         "\t</form>\n" +
