@@ -99,11 +99,8 @@ public class Math extends HttpServlet {
 
     out.println("\t\t\t<label class=\"col-sm-2 control-label\">Addition: " + additionNum1 + " + " + additionNum2 + "</label>\n" +
         "\t\t\t<div class=\"col-sm-10\">\n" +
-        "\t\t\t\t<input class=\"form-control\" type=\"text\" name=\"additionAnswer\" placeholder=\"Enter your answer\" value=\"" + addition + "\" autofocus>\n");
-    if (request.getAttribute("additionError") != null) {
-      out.println("\t\t\t\t<p class=\"text-center\"style=\"color: red\"><strong>Invalid/Incorrect answer! Please try again!</strong></p>");
-    }
-    out.println("\t\t\t</div>\n" +
+        "\t\t\t\t<input class=\"form-control\" type=\"text\" name=\"additionAnswer\" placeholder=\"Enter your answer\" value=\"" + addition + "\" autofocus>\n" +
+        "\t\t\t</div>\n" +
         "\t\t</div>");
 
     int subtractionNum1 = 0;
@@ -127,11 +124,8 @@ public class Math extends HttpServlet {
     out.println("\t<div class=\"form-group\">\n" +
         "\t<label class=\"col-sm-2 control-label\">Subtraction: " + subtractionNum1 + " - " + subtractionNum2 + "</label>\n" +
         "\t<div class=\"col-sm-10\">\n" +
-        "\t\t<input class=\"form-control\" type=\"text\" name=\"subtractionAnswer\" placeholder=\"Enter your answer\" value=\"" + subtraction + "\">\n");
-    if (request.getAttribute("additionError") != null) {
-      out.println("\t\t\t\t<p class=\"text-center\"style=\"color: red\"><strong>Invalid/Incorrect answer! Please try again!</strong></p>");
-    }
-    out.println("\t</div>\n" +
+        "\t\t<input class=\"form-control\" type=\"text\" name=\"subtractionAnswer\" placeholder=\"Enter your answer\" value=\"" + subtraction + "\">\n" +
+        "\t</div>\n" +
         "\t</div>\n");
 
     int multiplicationNum1 = 0;
@@ -185,7 +179,7 @@ public class Math extends HttpServlet {
         "\t</div>\n" +
         "\t<div class=\"form-group\">\n" +
         "\t\t\t<div class=\"col-sm-offset-2 col-sm-10\">\n" +
-        "\t\t\t\t<button type=\"submit\" class=\"btn btn-default\"></button>\n" +
+        "\t\t\t\t<button type=\"submit\" class=\"btn btn-default\">Submit</button>\n" +
         "\t\t\t</div>\n" +
         "\t\t</div>\n" +
         "\t</form>\n" +
@@ -197,7 +191,7 @@ public class Math extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    boolean hasError = true;
+    boolean hasError = false;
 
     int additionNum1 = (int) getServletContext().getAttribute("additionNum1");
     int additionNum2 = (int) getServletContext().getAttribute("additionNum2");
@@ -222,6 +216,8 @@ public class Math extends HttpServlet {
     int multiplicationAnswer = 0;
     int divisionAnswer = 0;
 
+    int score = 0;
+
     try {
       additionAnswer = Integer.parseInt(additionResult);
       subtractionAnswer = Integer.parseInt(subtractionResult);
@@ -234,33 +230,42 @@ public class Math extends HttpServlet {
     // Validate addition
     if (additionAnswer != addNum) {
       hasError = true;
-      request.setAttribute("additionError", true);
+      getServletContext().setAttribute("additionError", true);
+    } else {
+      score++;
     }
 
     // Validate subtraction
     if (subtractionAnswer != subNum) {
       hasError = true;
-      request.setAttribute("subtractionError", true);
+      getServletContext().setAttribute("subtractionError", true);
+    } else {
+      score++;
     }
 
     // Validate multiplication
     if (multiplicationAnswer != multNum) {
       hasError = true;
-      request.setAttribute("multiplicationError", true);
+      getServletContext().setAttribute("multiplicationError", true);
+    } else {
+      score++;
     }
 
     // Validate division
     if (divisionAnswer != divNum) {
       hasError = true;
-      request.setAttribute("divisionError", true);
+      getServletContext().setAttribute("divisionError", true);
+    } else {
+      score++;
     }
 
     if (hasError) {
       doGet(request, response);
     } else {
+      getServletContext().setAttribute("score", score);
       response.sendRedirect("Education");
     }
-
   }
 }
+
 
