@@ -81,8 +81,6 @@ public class Math extends HttpServlet {
     int additionNum2 = 0;
     int additionCounter = 0;
 
-    boolean addNums = false;
-
     for (Problem p : problems) {
       Collections.shuffle(problems);
       additionNum1 = p.getNum1();
@@ -90,7 +88,6 @@ public class Math extends HttpServlet {
       Collections.shuffle(problems);
       additionCounter++;
       if (additionCounter == 2) {
-        addNums = true;
         break;
       }
     }
