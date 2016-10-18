@@ -19,8 +19,26 @@
 </head>
 <body>
 <div class="container">
+
+    <%
+        boolean win = true;
+        boolean playerX = true;
+    %>
+
     <div class="page-header">
-        <h1 class="text-center">Player X's Turn
+        <h1 class="text-center">
+            <%
+                while (!win) {
+                    if (playerX) {
+            %>
+            Player X's Turn
+            <%
+            } else {
+            %>
+            Player O's Turn
+            <%
+                }
+            %>
             <small>Tic Tac Toe</small>
         </h1>
     </div>
@@ -67,6 +85,9 @@
                                                                       alt='Open Space'></a>
         </div>
     </div> <!--  end row -->
+    <%
+        }
+    %>
 
     <p class="text-center">
         <a href="TicTacToe.jsp?reset" class="btn btn-lg btn-primary">New Game</a>
