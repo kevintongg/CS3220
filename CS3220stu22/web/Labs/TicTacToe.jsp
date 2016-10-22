@@ -14,6 +14,9 @@
 
   <title>Tic Tac Toe</title>
 
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="bootstrap.min.css" type="text/css" crossorigin="anonymous">
 
 </head>
@@ -21,42 +24,61 @@
 <div class="container">
 
   <%
-    int rows = 3;
-    int columns = 3;
-
-    char[][] board = new char[rows][columns];
-
-    session.setAttribute("board", board);
-
     if (session.getAttribute("board") == null) {
-      board = new char[rows][columns];
+      char[] board = new char[9];
+      for (char i : board) {
+        board[i] = ' ';
+      }
+      session.setAttribute("board", board);
     }
 
+    char[] board = (char[]) session.getAttribute("board");
 
-    boolean win = true;
-    boolean playerX = true;
-    boolean newGame = false;
-
-    if (!newGame) {
-      session.invalidate();
+    if (session.getAttribute("currentPlayer") == null) {
+      session.setAttribute("currentPlayer", 'X');
     }
 
+    char currentPlayer = (Character) session.getAttribute("currentPlayer");
+
+    if (request.getParameter("location") != null && !winner(board)) {
+      int location = Integer.parseInt(request.getParameter("location"));
+      if (board[location] == ' ') {
+        board[location] = currentPlayer;
+
+        if (winner(board)) {
+          request.setAttribute("winner", currentPlayer);
+        } else {
+          currentPlayer = currentPlayer == 'X' ? 'O' : 'X';
+          session.setAttribute("currentPlayer", currentPlayer);
+        }
+      }
+    }
+  %>
+
+  <%!
+    private static boolean winner(char[] board) {
+
+      if ((board[1] == 'X' && board[5] == 'X' && board[9] == 'X')
+          || (board[3] == 'X' && board[5] == 'X' && board[7] == 'X')
+          || (board[1] == 'X' && board[4] == 'X' && board[7] == 'X')
+          || (board[2] == 'X' && board[5] == 'X' && board[8] == 'X')
+          || (board[3] == 'X' && board[6] == 'X' && board[9] == 'X')) {
+        return true;
+      } else if ((board[1] == 'O' && board[5] == 'O' && board[9] == 'O')
+          || (board[3] == 'O' && board[5] == 'O' && board[7] == 'O')
+          || (board[1] == 'O' && board[4] == 'O' && board[7] == 'O')
+          || (board[2] == 'O' && board[5] == 'O' && board[8] == 'O')
+          || (board[3] == 'O' && board[6] == 'O' && board[9] == 'O')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   %>
 
   <div class="page-header">
     <h1 class="text-center">
-      <%
-        while (!win) {
-          if (playerX) {
-      %>
-      Player X's Turn
-      <%
-      } else {
-      %>
-      Player O's Turn
-      <%
-        }
-      %>
+      It is Player <%=currentPlayer%>'s Turn!
       <small>Tic Tac Toe</small>
     </h1>
   </div>
@@ -103,9 +125,6 @@
                                                                 alt='Open Space'></a>
     </div>
   </div> <!--  end row -->
-  <%
-    }
-  %>
 
   <p class="text-center">
     <a href="TicTacToe.jsp?reset" class="btn btn-lg btn-primary">New Game</a>
