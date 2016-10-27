@@ -30,7 +30,7 @@ public class Metrics extends HttpServlet {
         // Get a reference to the application scope
         ServletContext context = this.getServletContext();
 
-        // Get the current value of the page counter
+        // Get the current value of the page turn
         int counter = (int) context.getAttribute("pageCounter");
 
         response.setContentType("text/html");

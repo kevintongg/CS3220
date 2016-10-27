@@ -34,22 +34,22 @@
 
     char[] board = (char[]) session.getAttribute("board");
 
-    if (session.getAttribute("currentPlayer") == null) {
-      session.setAttribute("currentPlayer", 'X');
+    if (session.getAttribute("player") == null) {
+      session.setAttribute("player", 'X');
     }
 
-    char currentPlayer = (Character) session.getAttribute("currentPlayer");
+    char player = (Character) session.getAttribute("player");
 
     if (request.getParameter("location") != null && !winner(board)) {
       int location = Integer.parseInt(request.getParameter("location"));
       if (board[location] == ' ') {
-        board[location] = currentPlayer;
+        board[location] = player;
 
         if (winner(board)) {
-          request.setAttribute("winner", currentPlayer);
+          request.setAttribute("winner", player);
         } else {
-          currentPlayer = currentPlayer == 'X' ? 'O' : 'X';
-          session.setAttribute("currentPlayer", currentPlayer);
+          player = player == 'X' ? 'O' : 'X';
+          session.setAttribute("player", player);
         }
       }
     }
@@ -78,7 +78,7 @@
 
   <div class="page-header">
     <h1 class="text-center">
-      It is Player <%=currentPlayer%>'s Turn!
+      It is Player <%=player%>'s Turn!
       <small>Tic Tac Toe</small>
     </h1>
   </div>

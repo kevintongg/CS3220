@@ -7,14 +7,14 @@ public class BeanA {
 
   int id = 0;
 
-  String name = "cs3220";
+  private String name = "cs3220";
 
-  String[] weekdays = {"mon", "tue", "wed", "thr", "fri"};
+  private String[] weekdays = {"mon", "tue", "wed", "thr", "fri"};
 
-  List<Integer> numbers;
+  private List<Integer> numbers;
 
   public BeanA() {
-    numbers = new ArrayList<Integer>();
+    numbers = new ArrayList<>();
     for (int i = 0; i < 10; ++i)
       numbers.add(100 + i);
   }

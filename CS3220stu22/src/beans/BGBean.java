@@ -2,7 +2,7 @@ package beans;
 
 public class BGBean {
 
-  int red, green, blue;
+  private int red, green, blue;
 
   public BGBean() {
     red = 200;

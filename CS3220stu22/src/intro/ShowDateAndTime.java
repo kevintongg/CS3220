@@ -30,10 +30,10 @@ public class ShowDateAndTime extends HttpServlet {
         // Get a reference to the application scope
         ServletContext context = this.getServletContext();
 
-        // Get the current value of the page counter
+        // Get the current value of the page turn
         int counter = (int) context.getAttribute("pageCounter");
 
-        // Increment the page counter, and update it in the application scope.
+        // Increment the page turn, and update it in the application scope.
         context.setAttribute("pageCounter", ++counter);
 
         response.setContentType("text/html");

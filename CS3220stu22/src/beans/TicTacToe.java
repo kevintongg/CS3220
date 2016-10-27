@@ -2,12 +2,15 @@ package beans;
 
 public class TicTacToe {
 
-  private char currentPlayer;
+  private int turn;
+  private char player;
   private char[] board;
 
   public TicTacToe() {
 
-    currentPlayer = 'X';
+    player = 'X';
+
+    turn = 0;
 
     board = new char[9];
 
@@ -16,12 +19,20 @@ public class TicTacToe {
     }
   }
 
-  public char getCurrentPlayer() {
-    return currentPlayer;
+  public char getPlayer() {
+
+    if (turn % 2 == 0) {
+      player = 'X';
+    } else if (turn % 2 != 0) {
+      player = 'O';
+    }
+
+    return player;
+
   }
 
-  public void setCurrentPlayer(char currentPlayer) {
-    this.currentPlayer = currentPlayer;
+  public void setPlayer(char player) {
+    this.player = player;
   }
 
   public char[] getBoard() {
@@ -34,6 +45,14 @@ public class TicTacToe {
 
   public void setReset(String reset) {
 
+  }
+
+  public int getTurn() {
+    return turn;
+  }
+
+  public void setTurn(int turn) {
+    this.turn = turn;
   }
 }
 
