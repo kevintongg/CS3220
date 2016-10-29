@@ -31,48 +31,47 @@
   <h1 class="page-header text-center">Tic-Tac-Toe
     <small>Beans</small>
   </h1>
-
-  <h1 class="text-center">Turn #:
-    <jsp:getProperty name="game" property="turn"/>
-  </h1>
   <h2 class="text-center">Current Turn — Player
-    <jsp:getProperty name="game" property="player"/>
+    ${game.player}
   </h2>
+
+  <jsp:setProperty name="game" property="move" param="location"/>
+  <jsp:setProperty name="game" property="reset" param="reset"/>
 
   <br/>
 
   <table>
     <tr class="text-center">
       <td>
-        <a href="TicTacToeBeans.jsp?location=0"><img src="http://cs3.calstatela.edu:8080/cs3220stu22/images/blank.png"/></a>
+        <a href="TicTacToeBeans.jsp?location=0"><img src="${game.links[0]}"/></a>
       </td>
       <td>
-        <a href="TicTacToeBeans.jsp?location=1"><img src="http://cs3.calstatela.edu:8080/cs3220stu22/images/blank.png"/></a>
+        <a href="TicTacToeBeans.jsp?location=1"><img src="${game.links[1]}"/></a>
       </td>
       <td>
-        <a href="TicTacToeBeans.jsp?location=2"><img src="http://cs3.calstatela.edu:8080/cs3220stu22/images/blank.png"/></a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="TicTacToeBeans.jsp?location=3"><img src="http://cs3.calstatela.edu:8080/cs3220stu22/images/blank.png"/></a>
-      </td>
-      <td>
-        <a href="TicTacToeBeans.jsp?location=4"><img src="http://cs3.calstatela.edu:8080/cs3220stu22/images/blank.png"/></a>
-      </td>
-      <td>
-        <a href="TicTacToeBeans.jsp?location=5"><img src="http://cs3.calstatela.edu:8080/cs3220stu22/images/blank.png"/></a>
+        <a href="TicTacToeBeans.jsp?location=2"><img src="${game.links[2]}"/></a>
       </td>
     </tr>
     <tr>
       <td>
-        <a href="TicTacToeBeans.jsp?location=6"><img src="http://cs3.calstatela.edu:8080/cs3220stu22/images/blank.png"/></a>
+        <a href="TicTacToeBeans.jsp?location=3"><img src="${game.links[3]}"/></a>
       </td>
       <td>
-        <a href="TicTacToeBeans.jsp?location=7"><img src="http://cs3.calstatela.edu:8080/cs3220stu22/images/blank.png"/></a>
+        <a href="TicTacToeBeans.jsp?location=4"><img src="${game.links[4]}"/></a>
       </td>
       <td>
-        <a href="TicTacToeBeans.jsp?location=8"><img src="http://cs3.calstatela.edu:8080/cs3220stu22/images/blank.png"/></a>
+        <a href="TicTacToeBeans.jsp?location=5"><img src="${game.links[5]}"/></a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="TicTacToeBeans.jsp?location=6"><img src="${game.links[6]}"/></a>
+      </td>
+      <td>
+        <a href="TicTacToeBeans.jsp?location=7"><img src="${game.links[7]}"/></a>
+      </td>
+      <td>
+        <a href="TicTacToeBeans.jsp?location=8"><img src="${game.links[8]}"/></a>
       </td>
     </tr>
   </table>
