@@ -64,7 +64,7 @@
 <%
   try {
     if (board.isGameOver()) {
-      out.println("The winner is: ");
+      out.println("The activeGame is: ");
       if (board.getWinner() == ' ') {
         out.println("a tie!");
       } else {
@@ -95,7 +95,7 @@
 
 
 <p>
-  <a href="index.jsp">new game</a>
+  <a href="index.jsp">new activeGame</a>
 </p>
 
 </font>

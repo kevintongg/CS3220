@@ -40,13 +40,13 @@
 
     char player = (Character) session.getAttribute("player");
 
-    if (request.getParameter("location") != null && !winner(board)) {
+    if (request.getParameter("location") != null && !activeGame(board)) {
       int location = Integer.parseInt(request.getParameter("location"));
       if (board[location] == ' ') {
         board[location] = player;
 
-        if (winner(board)) {
-          request.setAttribute("winner", player);
+        if (activeGame(board)) {
+          request.setAttribute("activeGame", player);
         } else {
           player = player == 'X' ? 'O' : 'X';
           session.setAttribute("player", player);
@@ -56,7 +56,7 @@
   %>
 
   <%!
-    private static boolean winner(char[] board) {
+    private static boolean activeGame(char[] board) {
 
       if ((board[1] == 'X' && board[5] == 'X' && board[9] == 'X')
           || (board[3] == 'X' && board[5] == 'X' && board[7] == 'X')

@@ -27,17 +27,16 @@
 </head>
 <body>
 
+<jsp:setProperty name="game" property="move" param="location"/>
+<jsp:setProperty name="game" property="winner" value=" "/>
+<jsp:setProperty name="game" property="reset" param="reset"/>
+
 <div class="container-fluid">
   <h1 class="page-header text-center">Tic-Tac-Toe
     <small>Beans</small>
   </h1>
-  <h2 class="text-center">Current Turn — Player
-    ${game.player}
-  </h2>
-
-  <jsp:setProperty name="game" property="move" param="location"/>
-  <jsp:setProperty name="game" property="reset" param="reset"/>
-
+  <h2 class="text-center">Current Turn — Player ${game.player}</h2>
+  <h2 class="text-center">Winner — Player: ${game.display()}</h2>
   <br/>
 
   <table>
@@ -79,7 +78,7 @@
   <br/>
 
   <p class="text-center">
-    <a href="TicTacToeBeans.jsp?reset" class="btn btn-lg btn-primary">New Game</a>
+    <a href="TicTacToeBeans.jsp?reset=" class="btn btn-lg btn-primary">New Game</a>
   </p>
 
 </div>

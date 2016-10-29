@@ -72,7 +72,7 @@
 
 <%
 
-  Game game = new Game();
+  Game activeGame = new Game();
 
   char[][] board = new char[3][3];
 
@@ -95,7 +95,7 @@
     }
   }
 
-  if (!game.isEndGame()) {
+  if (!activeGame.isEndGame()) {
     session.invalidate();
   }
 
@@ -111,9 +111,9 @@
   <div class="page-header">
     <h1>
       <%
-        if (game.getTurn() % 2 == 0) {
+        if (activeGame.getTurn() % 2 == 0) {
       %>Player X's Turn <%
-    } else if (game.getTurn() % 2 != 0) { %>
+    } else if (activeGame.getTurn() % 2 != 0) { %>
       Player O's Turn
       <%
         }
@@ -133,18 +133,18 @@
             src='http://placehold.it/150/cccccc?text=_' alt='Open Space'></a>
         <%
         } else if (location.equals("0")) {
-          if (game.getTurn() % 2 == 0) {
+          if (activeGame.getTurn() % 2 == 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'><img
             src='http://placehold.it/150/E8117F/ffffff?text=X' alt='X'></a>
         <%
-          game.setTurn(game.getTurn() + 1);
-        } else if (game.getTurn() % 2 != 0) {
+          activeGame.setTurn(activeGame.getTurn() + 1);
+        } else if (activeGame.getTurn() % 2 != 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'><img
             src='http://placehold.it/150/E8117F/ffffff?text=O' alt='O'></a>
         <%
-              game.setTurn(game.getTurn() + 1);
+              activeGame.setTurn(activeGame.getTurn() + 1);
             }
           }
         %></a>
@@ -158,18 +158,18 @@
           <img src='http://placehold.it/150/cccccc?text=_' alt='Open Space'></a>
         <%
         } else if (location.equals("1")) {
-          if (game.getTurn() % 2 == 0) {
+          if (activeGame.getTurn() % 2 == 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=X' alt='X'></a>
         <%
-          game.setTurn(game.getTurn() + 1);
-        } else if (game.getTurn() % 2 != 0) {
+          activeGame.setTurn(activeGame.getTurn() + 1);
+        } else if (activeGame.getTurn() % 2 != 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=O' alt='O'></a>
         <%
-              game.setTurn(game.getTurn() + 1);
+              activeGame.setTurn(activeGame.getTurn() + 1);
             }
           }
         %></a>
@@ -180,18 +180,18 @@
           <img src='http://placehold.it/150/cccccc?text=_' alt='Open Space'></a>
         <%
           if (location == "2") {
-            if (game.getTurn() % 2 == 0) {
+            if (activeGame.getTurn() % 2 == 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=X' alt='X'></a>
         <%
-          game.setTurn(game.getTurn() + 1);
-        } else if (game.getTurn() % 2 != 0) {
+          activeGame.setTurn(activeGame.getTurn() + 1);
+        } else if (activeGame.getTurn() % 2 != 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=O' alt='O'></a>
         <%
-              game.setTurn(game.getTurn() + 1);
+              activeGame.setTurn(activeGame.getTurn() + 1);
             }
           }
         %></a>
@@ -203,18 +203,18 @@
                                                                    alt='Open Space'>
         <%
           if (location == "3") {
-            if (game.getTurn() % 2 == 0) {
+            if (activeGame.getTurn() % 2 == 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=X' alt='X'></a>
         <%
-          game.setTurn(game.getTurn() + 1);
-        } else if (game.getTurn() % 2 != 0) {
+          activeGame.setTurn(activeGame.getTurn() + 1);
+        } else if (activeGame.getTurn() % 2 != 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=O' alt='O'></a>
         <%
-              game.setTurn(game.getTurn() + 1);
+              activeGame.setTurn(activeGame.getTurn() + 1);
             }
           }
         %></a>
@@ -224,18 +224,18 @@
                                                                    alt='Open Space'>
         <%
           if (location == "4") {
-            if (game.getTurn() % 2 == 0) {
+            if (activeGame.getTurn() % 2 == 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=X' alt='X'></a>
         <%
-          game.setTurn(game.getTurn() + 1);
-        } else if (game.getTurn() % 2 != 0) {
+          activeGame.setTurn(activeGame.getTurn() + 1);
+        } else if (activeGame.getTurn() % 2 != 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=O' alt='O'></a>
         <%
-              game.setTurn(game.getTurn() + 1);
+              activeGame.setTurn(activeGame.getTurn() + 1);
             }
           }
         %></a>
@@ -244,18 +244,18 @@
       <a href='TicTacToeOld.jsp?location=5' class='thumbnail'><img src='http://placehold.it/150/cccccc?text=_'
                                                                    alt='Open Space'><%
         if (location == "5") {
-          if (game.getTurn() % 2 == 0) {
+          if (activeGame.getTurn() % 2 == 0) {
       %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=X' alt='X'></a>
         <%
-          game.setTurn(game.getTurn() + 1);
-        } else if (game.getTurn() % 2 != 0) {
+          activeGame.setTurn(activeGame.getTurn() + 1);
+        } else if (activeGame.getTurn() % 2 != 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=O' alt='O'></a>
         <%
-              game.setTurn(game.getTurn() + 1);
+              activeGame.setTurn(activeGame.getTurn() + 1);
             }
           }
         %></a>
@@ -266,18 +266,18 @@
       <a href='TicTacToeOld.jsp?location=6' class='thumbnail'><img src='http://placehold.it/150/cccccc?text=_'
                                                                    alt='Open Space'><%
         if (location == "6") {
-          if (game.getTurn() % 2 == 0) {
+          if (activeGame.getTurn() % 2 == 0) {
       %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=X' alt='X'></a>
         <%
-          game.setTurn(game.getTurn() + 1);
-        } else if (game.getTurn() % 2 != 0) {
+          activeGame.setTurn(activeGame.getTurn() + 1);
+        } else if (activeGame.getTurn() % 2 != 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=O' alt='O'></a>
         <%
-              game.setTurn(game.getTurn() + 1);
+              activeGame.setTurn(activeGame.getTurn() + 1);
             }
           }
         %></a>
@@ -287,18 +287,18 @@
                                                                    alt='Open Space'>
         <%
           if (location == "7") {
-            if (game.getTurn() % 2 == 0) {
+            if (activeGame.getTurn() % 2 == 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=X' alt='X'></a>
         <%
-          game.setTurn(game.getTurn() + 1);
-        } else if (game.getTurn() % 2 != 0) {
+          activeGame.setTurn(activeGame.getTurn() + 1);
+        } else if (activeGame.getTurn() % 2 != 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=O' alt='O'></a>
         <%
-              game.setTurn(game.getTurn() + 1);
+              activeGame.setTurn(activeGame.getTurn() + 1);
             }
           }
         %></a>
@@ -308,18 +308,18 @@
                                                                    alt='Open Space'>
         <%
           if (location == "8") {
-            if (game.getTurn() % 2 == 0) {
+            if (activeGame.getTurn() % 2 == 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=X' alt='X'></a>
         <%
-          game.setTurn(game.getTurn() + 1);
-        } else if (game.getTurn() % 2 != 0) {
+          activeGame.setTurn(activeGame.getTurn() + 1);
+        } else if (activeGame.getTurn() % 2 != 0) {
         %>
         <a style="text-decoration: none" href='#' class='thumbnail'>
           <img src='http://placehold.it/150/E8117F/ffffff?text=O' alt='O'></a>
         <%
-              game.setTurn(game.getTurn() + 1);
+              activeGame.setTurn(activeGame.getTurn() + 1);
             }
           }
         %></a>
@@ -327,8 +327,8 @@
   </div> <!--  end row -->
 
   <%
-    if (game.getTurn() == 9) {
-      game.setEndGame(true);
+    if (activeGame.getTurn() == 9) {
+      activeGame.setEndGame(true);
     }
   %>
 
