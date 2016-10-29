@@ -157,12 +157,13 @@ public class TicTacToe {
 
   public void setReset(String reset) {
 
-    if (!activeGame) {
+    if (!reset.equals("")) {
       for (int i = 0; i < board.length; i++) {
         board[i] = ' ';
       }
 
       player = 'X';
+      winner = ' ';
     }
   }
 

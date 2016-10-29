@@ -16,6 +16,8 @@
 
   <title>Tic-Tac-Toe</title>
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" crossorigin="anonymous">
 
   <style>
@@ -29,7 +31,7 @@
 
 <jsp:setProperty name="game" property="move" param="location"/>
 <jsp:setProperty name="game" property="winner" value=" "/>
-<jsp:setProperty name="game" property="reset" param="reset"/>
+<jsp:setProperty name="game" property="reset" value="${param['reset']}"/>
 
 <div class="container-fluid">
   <h1 class="page-header text-center">Tic-Tac-Toe
@@ -78,9 +80,8 @@
   <br/>
 
   <p class="text-center">
-    <a href="TicTacToeBeans.jsp?reset=" class="btn btn-lg btn-primary">New Game</a>
+    <a href="TicTacToeBeans.jsp?reset=true" class="btn btn-lg btn-primary">New Game</a>
   </p>
-
 </div>
 </body>
 </html>
