@@ -28,8 +28,7 @@
 <body>
 
 <jsp:setProperty name="game" property="move" param="location"/>
-<jsp:setProperty name="game" property="winner" value=" "/>
-<jsp:setProperty name="game" property="reset" value="${param['reset']}"/>
+<jsp:setProperty name="game" property="reset" param="reset"/>
 
 <div class="container-fluid">
   <h1 class="page-header text-center">Tic-Tac-Toe
