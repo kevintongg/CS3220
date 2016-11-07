@@ -115,14 +115,12 @@ public class TicTacToe {
   }
 
   public void setMove(String move) {
-    for (int i = 0; i < board.length; i++) {
-      if (!check(board)) {
-        if (board[i] == ' ') {
-          board[Integer.parseInt(move)] = player;
-          player = player == 'O' ? 'X' : 'O';
-        } else {
-          player = player == 'X' ? 'O' : 'X';
-        }
+    if (!check(board)) {
+      if (board[Integer.parseInt(move)] == ' ') {
+        board[Integer.parseInt(move)] = player;
+        player = player == 'O' ? 'X' : 'O';
+      } else {
+        player = player == 'X' ? 'O' : 'X';
       }
     }
 
