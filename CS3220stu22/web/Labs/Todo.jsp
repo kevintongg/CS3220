@@ -19,14 +19,21 @@
 <body>
 
 <div class="container-fluid">
+
   <div class="page-header">
     <h1>ToDo
       <small>CS3220</small>
     </h1>
   </div>
 
-  <form>
-
+  <form class="form-inline" action="Todo" method="post">
+    <div class="form-group">
+      <span id="remaining">2</span> of <span id="total">3</span> Todos [ <a href="Archive">Archive</a> ]
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Enter a Todo">
+    </div>
+    <button type="submit" class="btn btn-default">Add</button>
   </form>
 
   <table class="table table-bordered table-striped table-hover">
@@ -37,20 +44,27 @@
 
     <tr>
       <td>Make a todo list</td>
-      <td><a class="btn btn-primary" href="update?id=1">Mark as Done</a></td>
+      <td>
+        <a class="btn btn-primary btn-sm" href="Update?id=1&state=done">Mark as Done</a>
+      </td>
     </tr>
 
     <tr>
       <td>Add an item to todo list</td>
-      <td><a class="btn btn-primary" href="update?id=2">Mark as Done</a></td>
+      <td>
+        <a class="btn btn-primary btn-sm" href="Update?id=2&state=done">Mark as Done</a>
+      </td>
     </tr>
 
     <tr>
-      <td><s>Complete item on todo list</s></td>
-      <td><a class="btn btn-success" href="update?id=3">Mark as Not Done</a></td>
+      <td>
+        <s>Complete an item on todo list</s>
+      </td>
+      <td>
+        <a class="btn btn-success btn-sm" href="Update?id=3&state=notdone">Mark as Not Done</a>
+      </td>
     </tr>
   </table>
-
 </div>
 </body>
 </html>
