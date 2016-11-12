@@ -60,7 +60,7 @@ public class Update extends HttpServlet {
       }
     }
 
-    response.sendRedirect("/Labs/Todo");
+    response.sendRedirect("Todo");
   }
 
   @Override

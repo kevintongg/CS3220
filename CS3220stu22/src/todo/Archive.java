@@ -47,7 +47,7 @@ public class Archive extends HttpServlet {
       }
     }
 
-    response.sendRedirect("/Labs/Todo");
+    response.sendRedirect("Todo");
   }
 
   @Override

@@ -13,8 +13,7 @@
 <head>
   <title>Todo</title>
 
-  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+" crossorigin="anonymous">
+  <link href="../css/paper-bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body>
