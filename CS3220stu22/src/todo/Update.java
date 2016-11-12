@@ -11,16 +11,27 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet("/Labs/Archive")
-public class Archive extends HttpServlet {
+@WebServlet("/Labs/Update")
+public class Update extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    String id = request.getParameter("id");
+    String state = request.getParameter("state");
+
+    if (id == null || state == null) {
+      response.sendRedirect("Todo");
+      return;
+    } else if (!(state.equals("done") || state.equals("notdone"))) {
+      response.sendRedirect("Todo");
+      return;
+    }
+
     try {
       Class.forName("com.mysql.jdbc.Driver");
     } catch (ClassNotFoundException e) {
-      throw new ServletException(e);
+      e.printStackTrace();
     }
 
     Connection connection = null;
@@ -31,7 +42,9 @@ public class Archive extends HttpServlet {
 
       connection = DriverManager.getConnection(url, username, password);
 
-      PreparedStatement preparedStatement = connection.prepareStatement("UPDATE list SET state=\"archived\" WHERE state=\"done\"");
+      PreparedStatement preparedStatement = connection.prepareStatement("UPDATE list SET state=? WHERE id=?");
+      preparedStatement.setString(1, state);
+      preparedStatement.setString(2, id);
 
       preparedStatement.execute();
 
