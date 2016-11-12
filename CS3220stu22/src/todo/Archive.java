@@ -1,4 +1,4 @@
-package jdbc;
+package todo;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -7,20 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
 
-//5*tf4x*j
-
-@WebServlet("/HelloJDBC")
-public class HelloJDBC extends HttpServlet {
-
-  private static final long serialVersionUID = 1L;
-
-  public HelloJDBC() {
+@WebServlet("/Labs/Archive")
+public class Archive extends HttpServlet {
+  public Archive() {
     super();
   }
 
+  @Override
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
 
@@ -31,11 +26,8 @@ public class HelloJDBC extends HttpServlet {
     }
   }
 
+  @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    out.print("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0");
-    out.print("Transitional//EN\">\n");
-    out.print("<html><head><title>Hello JDBC</title></head>\n<body>");
 
     Connection connection = null;
     try {
@@ -46,13 +38,6 @@ public class HelloJDBC extends HttpServlet {
       connection = DriverManager.getConnection(url, username, password);
       Statement statement = connection.createStatement();
       ResultSet resultSet = statement.executeQuery("SELECT * FROM items");
-
-      while (resultSet.next()) {
-        out.println(resultSet.getString("name"));
-        out.println(resultSet.getString("price"));
-        out.println(resultSet.getFloat("quantity"));
-        out.println("<br />");
-      }
     } catch (SQLException e) {
       throw new ServletException(e);
     } finally {
@@ -65,10 +50,10 @@ public class HelloJDBC extends HttpServlet {
       }
     }
 
-    out.print("</body></html>");
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    super.doPost(request, response);
   }
 }

@@ -77,7 +77,7 @@ public class GuestBook extends HttpServlet {
       out.println("<tr>");
       out.println("  <td>" + entry.getName() + "</td>");
       out.println("  <td>" + entry.getMessage() + "</td>");
-      out.println("  <td>" + entry.getCreated() + "</td>");
+      out.println("  <td>" + entry.getDate() + "</td>");
       out.println("  <td>");
       out.println("    <a href=\"EditEntry?id=" + entry.getId() + "\">Edit</a> | ");
       out.println("    <a href=\"DeleteEntry?id=" + entry.getId() + "\">Delete</a>");

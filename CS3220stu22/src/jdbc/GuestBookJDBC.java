@@ -1,5 +1,7 @@
 package jdbc;
 
+import models.GuestBookEntryMVC;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,17 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-//5*tf4x*j
-
-@WebServlet("/HelloJDBC")
-public class HelloJDBC extends HttpServlet {
+@WebServlet(urlPatterns = "/GuestBookJDBC", loadOnStartup = 1)
+public class GuestBookJDBC extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
-  public HelloJDBC() {
+  public GuestBookJDBC() {
     super();
   }
 
@@ -32,11 +33,8 @@ public class HelloJDBC extends HttpServlet {
   }
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    out.print("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0");
-    out.print("Transitional//EN\">\n");
-    out.print("<html><head><title>Hello JDBC</title></head>\n<body>");
 
+    List<GuestBookEntryMVC> entries = new ArrayList<>();
     Connection connection = null;
     try {
       String url = "jdbc:mysql://cs3.calstatela.edu/cs3220stu22";
@@ -45,13 +43,11 @@ public class HelloJDBC extends HttpServlet {
 
       connection = DriverManager.getConnection(url, username, password);
       Statement statement = connection.createStatement();
-      ResultSet resultSet = statement.executeQuery("SELECT * FROM items");
+      ResultSet resultSet = statement.executeQuery("select * from guestbook");
 
       while (resultSet.next()) {
-        out.println(resultSet.getString("name"));
-        out.println(resultSet.getString("price"));
-        out.println(resultSet.getFloat("quantity"));
-        out.println("<br />");
+        GuestBookEntryMVC entry = new GuestBookEntryMVC(resultSet.getString("name"), resultSet.getString("message"));
+        entries.add(entry);
       }
     } catch (SQLException e) {
       throw new ServletException(e);
@@ -65,10 +61,12 @@ public class HelloJDBC extends HttpServlet {
       }
     }
 
-    out.print("</body></html>");
+    request.setAttribute("entries", entries);
+    request.getRequestDispatcher("/WEB-INF/GuestBook.jsp").forward(request, response);
   }
 
-  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    doGet(request, response);
   }
+
 }

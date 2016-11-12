@@ -4,18 +4,18 @@ import java.util.Date;
 
 public class GuestBookEntry {
 
-  static int count = 0;
+  private static int count = 0;
 
   int id;
   String name;
   String message;
-  Date created;
+  Date date;
 
   public GuestBookEntry(String name, String message) {
     super();
     this.name = name;
     this.message = message;
-    this.created = new Date();
+    this.date = new Date();
     this.id = count++;
   }
 
@@ -39,12 +39,12 @@ public class GuestBookEntry {
     this.message = message;
   }
 
-  public Date getCreated() {
-    return created;
+  public Date getDate() {
+    return date;
   }
 
-  public void setCreated(Date created) {
-    this.created = created;
+  public void setDate(Date date) {
+    this.date = date;
   }
 
 

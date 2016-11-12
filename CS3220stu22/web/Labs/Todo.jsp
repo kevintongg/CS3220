@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jstl/sql" %>
 <html>
 <head>
   <title>CS 3220 — To Do App</title>
@@ -19,7 +21,6 @@
 <body>
 
 <div class="container-fluid">
-
   <div class="page-header">
     <h1>ToDo
       <small>CS3220</small>
@@ -36,35 +37,46 @@
     <button type="submit" class="btn btn-default">Add</button>
   </form>
 
-  <table class="table table-bordered table-striped table-hover">
+  <table class="table table-striped table-bordered table-hover text-center" border="1">
     <tr>
       <th>Title</th>
       <th>Action</th>
     </tr>
 
-    <tr>
-      <td>Make a todo list</td>
-      <td>
-        <a class="btn btn-primary btn-sm" href="Update?id=1&state=done">Mark as Done</a>
-      </td>
-    </tr>
-
-    <tr>
-      <td>Add an item to todo list</td>
-      <td>
-        <a class="btn btn-primary btn-sm" href="Update?id=2&state=done">Mark as Done</a>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <s>Complete an item on todo list</s>
-      </td>
-      <td>
-        <a class="btn btn-success btn-sm" href="Update?id=3&state=notdone">Mark as Not Done</a>
-      </td>
-    </tr>
+    <c:forEach items="${entries}" var="entry">
+      <tr>
+        <td><c:out value="${entry.title}" escapeXml="true"/></td>
+        <td><a class="btn btn-primary btn-sm" href="Update?id=&state=done">Mark as Done</a></td>
+      </tr>
+    </c:forEach>
   </table>
+</div>
+</body>
+</html>
+
+<%--<tr>--%>
+<%--<td>Make a todo list</td>--%>
+<%--<td>--%>
+<%--<a class="btn btn-primary btn-sm" href="Update?id=1&state=done">Mark as Done</a>--%>
+<%--</td>--%>
+<%--</tr>--%>
+
+<%--<tr>--%>
+<%--<td>Add an item to todo list</td>--%>
+<%--<td>--%>
+<%--<a class="btn btn-primary btn-sm" href="Update?id=2&state=done">Mark as Done</a>--%>
+<%--</td>--%>
+<%--</tr>--%>
+
+<%--<tr>--%>
+<%--<td>--%>
+<%--<s>Complete an item on todo list</s>--%>
+<%--</td>--%>
+<%--<td>--%>
+<%--<a class="btn btn-success btn-sm" href="Update?id=3&state=notdone">Mark as Not Done</a>--%>
+<%--</td>--%>
+<%--</tr>--%>
+</table>
 </div>
 </body>
 </html>
