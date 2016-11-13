@@ -20,7 +20,7 @@
 <div class="container">
 
   <!-- Page Header -->
-  <div class="page-header">
+  <div class="page-header text-center">
     <h2>
       Todo
       <small>
@@ -29,7 +29,7 @@
         <span id="total">${fn:length(todos)}</span>
         remaining
         <small>
-          [<a href="Archive">Archive</a>]
+          [<a style="text-decoration: none" href="Archive">Archive</a>]
         </small>
       </small>
     </h2>
@@ -66,7 +66,7 @@
       <thead>
       <tr>
         <th>Task</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -100,6 +100,12 @@
                 <a class="btn btn-default btn-xs" href="${updateUrl}">Mark as Not Done</a>
               </c:otherwise>
             </c:choose>
+
+            <c:url value="Delete" var="deleteItem">
+              <c:param name="id" value="${todo.id}"/>
+            </c:url>
+
+            <a class="btn btn-danger btn-xs" href="${deleteItem}">Delete Item</a>
           </td>
         </tr>
       </c:forEach>
@@ -107,8 +113,7 @@
     </table>
   </c:if>
 
-
-  <div class="page-header">
+  <div class="page-header text-center">
     <h2>Archived
       <small>
         <span id="totalArchived">${fn:length(archived)} todo(s)</span>
@@ -129,7 +134,7 @@
       <thead>
       <tr>
         <th>Task</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -151,6 +156,12 @@
             </c:url>
 
             <a class="btn btn-default btn-xs" href="${updateUrl}">Mark as Not Done</a>
+
+            <c:url value="Delete" var="deleteItem">
+              <c:param name="id" value="${todo.id}"/>
+            </c:url>
+
+            <a class="btn btn-danger btn-xs" href="${deleteItem}">Delete Item</a>
 
           </td>
         </tr>

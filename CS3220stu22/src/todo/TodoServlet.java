@@ -74,7 +74,7 @@ public class TodoServlet extends HttpServlet {
     String description = request.getParameter("description");
 
     if (description == null) {
-      request.setAttribute("error", "Invalid input! Try inputting your description again!");
+      request.setAttribute("error", "Invalid input! You did not enter anything. Please try again.");
       doGet(request, response);
       return;
     }
@@ -82,7 +82,13 @@ public class TodoServlet extends HttpServlet {
     description = description.trim();
 
     if (description.equals("")) {
-      request.setAttribute("error", "Invalid input! Try inputting your description again!");
+      request.setAttribute("error", "Invalid input! You did not enter anything. Please try again.");
+      doGet(request, response);
+      return;
+    }
+
+    if (description.length() > 255) {
+      request.setAttribute("error", "Your input is too long! Please try again.");
       doGet(request, response);
       return;
     }
@@ -118,6 +124,6 @@ public class TodoServlet extends HttpServlet {
       }
     }
 
-    response.sendRedirect("/Labs/Todo");
+    response.sendRedirect("Todo");
   }
 }
