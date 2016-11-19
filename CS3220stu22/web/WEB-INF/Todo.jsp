@@ -37,6 +37,9 @@
         <small>
           [<a style="text-decoration: none" href="Archive">Archive</a>]
         </small>
+        <small>
+          [<a style="text-decoration: none" href="Reset">Reset</a>]
+        </small>
       </small>
     </h2>
   </div>
@@ -60,7 +63,7 @@
   </form>
 
   <c:if test="${empty todos}">
-    <div class="jumbotron">
+    <div class="jumbotron text-center">
       <h1>Uh-Oh!
         <small>There are no tasks to display.</small>
       </h1>
@@ -81,10 +84,10 @@
           <td>
             <c:choose>
               <c:when test="${todo.notDone}">
-                ${todo.description}
+                <c:out value="${todo.description}"/>
               </c:when>
               <c:otherwise>
-                <s>${todo.description}</s>
+                <s><c:out value="${todo.description}"/></s>
               </c:otherwise>
             </c:choose>
           </td>
@@ -98,11 +101,9 @@
 
             <c:choose>
               <c:when test="${todo.notDone}">
-                <%--<a class="btn btn-primary btn-xs" href="Update?id=${todo.id}&state=${todo.oppositeState}">Mark as Done</a>--%>
                 <a class="btn btn-primary btn-xs" href="${updateUrl}">Mark as Done</a>
               </c:when>
               <c:otherwise>
-                <%--<a class="btn btn-default btn-xs" href="Update?id=${todo.id}&state=${todo.oppositeState}">Mark as Not Done</a> --%>
                 <a class="btn btn-default btn-xs" href="${updateUrl}">Mark as Not Done</a>
               </c:otherwise>
             </c:choose>
@@ -118,6 +119,8 @@
       </tbody>
     </table>
   </c:if>
+
+  <hr/>
 
   <div class="page-header text-center">
     <h2>Archived
@@ -150,8 +153,11 @@
             <c:choose>
               <c:when test="${todo.notDone}">
                 ${todo.description}
+                <c:out value="${todo.description}"/>
               </c:when>
-              <c:otherwise><s>${todo.description}</s></c:otherwise>
+              <c:otherwise>
+                <s><c:out value="${todo.description}"/></s>
+              </c:otherwise>
             </c:choose>
           </td>
           <td>
