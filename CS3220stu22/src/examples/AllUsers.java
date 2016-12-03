@@ -37,7 +37,7 @@ public class AllUsers extends HttpServlet {
 
     PrintWriter out = response.getWriter();
 
-    out.println("<!doctype html><html lang=\"en-us\"><head><title>List of Users</title></head><body>");
+    out.println("<!doctype html><html lang=\"en-us\"><head><title>finalExam of Users</title></head><body>");
 
     out.println("<form action='AllUsers' method='get'><input type='text' name='query' /><input type='submit' value='search' /></form>");
 

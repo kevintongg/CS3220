@@ -56,7 +56,7 @@ public class AllUsers extends HttpServlet {
         "<body>\n" +
         "<div class=\"container\">\n" +
         "\t<div class=\"page-header\">\n" +
-        "\t\t<h1>User List</h1>\n" +
+        "\t\t<h1>User finalExam</h1>\n" +
         "\t</div>\n" +
         "\n" +
         "\t<form class=\"text-center\" action=\"AllUsers\" method=\"get\">\n" +
