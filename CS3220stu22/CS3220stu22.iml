@@ -39,5 +39,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="javax.servlet:jstl:1.2" level="project" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="day" level="application" />
+    <orderEntry type="library" name="time" level="application" />
   </component>
 </module>

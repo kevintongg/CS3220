@@ -73,29 +73,29 @@ public class GradeCalculator extends HttpServlet {
 
     out.println("<tr>");
     out.println("<td>Homework and Lab</td>");
-    out.println("<td><input type=\"text\" name=\"possible-hwl\" placeholder=\"210\" value=\"" + 210 + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"hwl\" value=\"" + 210 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"possible-hwl\" placeholder=\"210\" value=\"" + 1810 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"hwl\" value=\"" + 1745 + "\"></td>");
     out.println("<td>-/20%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Quizzes</td>");
-    out.println("<td><input type=\"text\" name=\"possible-quizzes\" placeholder=\"50\" value=\"" + 50 + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"quizzes\" value=\"" + 35 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"possible-quizzes\" placeholder=\"50\" value=\"" + 210 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"quizzes\" value=\"" + 180 + "\"></td>");
     out.println("<td>-/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Midterm</td>");
-    out.println("<td><input type=\"text\" name=\"possible-midterm\" placeholder=\"100\" value=\"" + 100 + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"midterm\" value=\"" + 85 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"possible-midterm\" placeholder=\"100\" value=\"" + 310 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"midterm\" value=\"" + 235 + "\"></td>");
     out.println("<td>-/25%</td>");
     out.println("</tr>");
 
     out.println("<tr>");
     out.println("<td>Final</td>");
-    out.println("<td><input type=\"text\" name=\"possible-final\" placeholder=\"100\" value=\"" + 100 + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"final\" value=\"" + 80 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"possible-final\" placeholder=\"100\" value=\"" + 274 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"final\" value=\"" + 233 + "\"></td>");
     out.println("<td>-/25%</td>");
     out.println("</tr>");
 
