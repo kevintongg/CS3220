@@ -9,7 +9,6 @@
         <webroots>
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
-        <sourceRoots />
       </configuration>
     </facet>
     <facet type="javaeeApplication" name="javaEEApplication">
@@ -42,5 +41,8 @@
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="day" level="application" />
     <orderEntry type="library" name="time" level="application" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" name="Hibernate Validator-5.0.1" level="project" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:5.1.40" level="project" />
   </component>
 </module>
