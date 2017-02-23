@@ -73,8 +73,8 @@ public class GradeCalculator extends HttpServlet {
 
     out.println("<tr>");
     out.println("<td>Homework and Lab</td>");
-    out.println("<td><input type=\"text\" name=\"possible-hwl\" placeholder=\"210\" value=\"" + 1810 + "\"></td>");
-    out.println("<td><input type=\"text\" name=\"hwl\" value=\"" + 1795 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"possible-hwl\" placeholder=\"210\" value=\"" + 1460 + "\"></td>");
+    out.println("<td><input type=\"text\" name=\"hwl\" value=\"" + 1445 + "\"></td>");
     out.println("<td>-/20%</td>");
     out.println("</tr>");
 
