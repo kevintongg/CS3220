@@ -10,24 +10,24 @@ import java.io.PrintWriter;
 
 @WebServlet("/Intro/SimplePageCounter")
 public class PageCounter extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private int counter = 0;
+  private int counter = 0;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // Set the content type to HTML
-        response.setContentType("text/html");
+    // Set the content type to HTML
+    response.setContentType("text/html");
 
-        // Get a reference to a print writer that writes back to the browser
-        PrintWriter out = response.getWriter();
+    // Get a reference to a print writer that writes back to the browser
+    PrintWriter out = response.getWriter();
 
-        // Print our message
-        out.println("<h1>You are visitor: " + ++counter + "</h1>");
-    }
+    // Print our message
+    out.println("<h1>You are visitor: " + ++counter + "</h1>");
+  }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    doGet(request, response);
+  }
 
 }
